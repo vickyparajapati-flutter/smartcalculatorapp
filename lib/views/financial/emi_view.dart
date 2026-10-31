@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -17,60 +18,62 @@ class EmiView extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          // EMI Result Banner
+          // EMI Result Banner (Ultra-Thin Luxury Card)
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.3),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                )
-              ],
+              color: isDark ? AppColors.darkCard : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                width: 0.6,
+              ),
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Monthly EMI',
-                  style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w500),
+                Text(
+                  'MONTHLY EMI',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   currencyFormatter.format(fin.monthlyEmi),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
-                    letterSpacing: 0.5,
+                  style: GoogleFonts.inter(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w200,
+                    letterSpacing: -0.5,
+                    color: AppColors.cyan,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
+                Divider(color: isDark ? AppColors.darkBorder : AppColors.lightBorder, height: 1),
+                const SizedBox(height: 14),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Principal', style: TextStyle(color: Colors.white60, fontSize: 12)),
+                        Text('Principal Amount', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
                         const SizedBox(height: 2),
-                        Text(
-                          currencyFormatter.format(fin.loanPrincipal),
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                        Text(currencyFormatter.format(fin.loanPrincipal),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
                       ],
                     ),
-                    Container(height: 24, width: 1, color: Colors.white24),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text('Total Interest', style: TextStyle(color: Colors.white60, fontSize: 12)),
+                        Text('Total Interest', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
                         const SizedBox(height: 2),
-                        Text(
-                          currencyFormatter.format(fin.totalLoanInterest),
-                          style: const TextStyle(color: Color(0xFFFDE047), fontWeight: FontWeight.bold),
-                        ),
+                        Text(currencyFormatter.format(fin.totalLoanInterest),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.amber)),
                       ],
                     ),
                   ],
@@ -78,7 +81,7 @@ class EmiView extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
           // Loan Principal Slider Card
           Card(
@@ -90,10 +93,10 @@ class EmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Loan Amount', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Loan Amount', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         currencyFormatter.format(fin.loanPrincipal),
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.cyan),
                       ),
                     ],
                   ),
@@ -102,6 +105,7 @@ class EmiView extends StatelessWidget {
                     min: 10000,
                     max: 10000000,
                     divisions: 100,
+                    activeColor: AppColors.cyan,
                     onChanged: (val) => fin.updateLoanPrincipal(val),
                   ),
                 ],
@@ -120,10 +124,10 @@ class EmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Interest Rate (p.a.)', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Interest Rate (p.a.)', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         '${fin.loanAnnualRate.toStringAsFixed(1)} %',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.cyan),
                       ),
                     ],
                   ),
@@ -132,6 +136,7 @@ class EmiView extends StatelessWidget {
                     min: 1.0,
                     max: 30.0,
                     divisions: 58,
+                    activeColor: AppColors.cyan,
                     onChanged: (val) => fin.updateLoanRate(val),
                   ),
                 ],
@@ -150,10 +155,10 @@ class EmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Loan Tenure', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Loan Tenure', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         '${(fin.loanTenureMonths / 12).toStringAsFixed(1)} Yrs (${fin.loanTenureMonths} Mos)',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.primary),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.cyan),
                       ),
                     ],
                   ),
@@ -162,6 +167,7 @@ class EmiView extends StatelessWidget {
                     min: 6,
                     max: 360,
                     divisions: 59,
+                    activeColor: AppColors.cyan,
                     onChanged: (val) => fin.updateLoanTenureMonths(val.toInt()),
                   ),
                 ],
@@ -171,21 +177,19 @@ class EmiView extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Total Payment Summary
-          Container(
-            padding: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF1E293B) : const Color(0xFFF1F5F9),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text('Total Amount Payable:', style: TextStyle(fontWeight: FontWeight.w600)),
-                Text(
-                  currencyFormatter.format(fin.totalLoanPayment),
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                ),
-              ],
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Total Amount Payable', style: GoogleFonts.inter(color: Colors.grey, fontSize: 13)),
+                  Text(
+                    currencyFormatter.format(fin.totalLoanPayment),
+                    style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w500),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -193,4 +197,3 @@ class EmiView extends StatelessWidget {
     );
   }
 }
-

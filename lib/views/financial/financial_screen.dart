@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_colors.dart';
 import 'gst_view.dart';
 import 'emi_view.dart';
@@ -10,21 +11,31 @@ class FinancialScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Finance Hub'),
-          bottom: const TabBar(
+          title: Text(
+            'Finance Hub',
+            style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 18),
+          ),
+          bottom: TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
             indicatorColor: AppColors.cyan,
-            labelColor: AppColors.cyan,
-            tabs: [
-              Tab(icon: Icon(Icons.receipt_rounded), text: 'GST Tax'),
-              Tab(icon: Icon(Icons.account_balance_rounded), text: 'Loan EMI'),
-              Tab(icon: Icon(Icons.trending_up_rounded), text: 'SIP Wealth'),
-              Tab(icon: Icon(Icons.local_offer_rounded), text: 'Discount'),
+            indicatorWeight: 2,
+            dividerColor: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+            labelColor: isDark ? AppColors.cyan : AppColors.primary,
+            unselectedLabelColor: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            labelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500),
+            unselectedLabelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400),
+            tabs: const [
+              Tab(text: 'GST Tax'),
+              Tab(text: 'Loan EMI'),
+              Tab(text: 'SIP Wealth'),
+              Tab(text: 'Discount & Sale'),
             ],
           ),
         ),
@@ -40,4 +51,3 @@ class FinancialScreen extends StatelessWidget {
     );
   }
 }
-

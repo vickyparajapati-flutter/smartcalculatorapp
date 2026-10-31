@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
+import '../../core/utils/haptic_service.dart';
 import '../../providers/financial_provider.dart';
 
 class DiscountView extends StatelessWidget {
@@ -12,7 +14,6 @@ class DiscountView extends StatelessWidget {
     final fin = context.watch<FinancialProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final currencyFormatter = NumberFormat.currency(locale: 'en_IN', symbol: '₹', decimalDigits: 2);
-
     final discountOptions = [10.0, 20.0, 30.0, 40.0, 50.0, 70.0];
 
     return SingleChildScrollView(
@@ -20,6 +21,71 @@ class DiscountView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Final Price Card (Ultra-Thin Minimalist)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(22),
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.darkCard : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                width: 0.6,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'FINAL DISCOUNTED PRICE',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  currencyFormatter.format(fin.finalDiscountedPrice),
+                  style: GoogleFonts.inter(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w200,
+                    letterSpacing: -0.5,
+                    color: AppColors.cyan,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Divider(color: isDark ? AppColors.darkBorder : AppColors.lightBorder, height: 1),
+                const SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Original Price', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        const SizedBox(height: 2),
+                        Text(currencyFormatter.format(fin.discountOriginalPrice),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Total Savings', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        const SizedBox(height: 2),
+                        Text(currencyFormatter.format(fin.totalDiscountSavings),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.emerald)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
           // Original Price Input Card
           Card(
             child: Padding(
@@ -27,20 +93,13 @@ class DiscountView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Original Price', style: TextStyle(color: Colors.grey, fontSize: 13)),
+                  Text('Original Price', style: GoogleFonts.inter(color: Colors.grey, fontSize: 12)),
                   const SizedBox(height: 8),
                   TextFormField(
                     initialValue: fin.discountOriginalPrice.toStringAsFixed(0),
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                      prefixIcon: const Padding(
-                        padding: EdgeInsets.only(top: 6, left: 12),
-                        child: Text('₹', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-                      ),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                    ),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w300),
+                    decoration: const InputDecoration(prefixText: '₹ '),
                     onChanged: (val) {
                       final parsed = double.tryParse(val);
                       if (parsed != null && parsed >= 0) {
@@ -55,24 +114,54 @@ class DiscountView extends StatelessWidget {
           const SizedBox(height: 16),
 
           // Primary Discount Quick Chips
-          const Text('Discount (%)', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-          const SizedBox(height: 8),
-          Wrap(
-            spacing: 8,
-            runSpacing: 8,
+          Text(
+            'DISCOUNT PERCENTAGE',
+            style: GoogleFonts.inter(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1.0,
+              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: discountOptions.map((rate) {
               final isSelected = fin.discountPercentage == rate;
-              return ChoiceChip(
-                label: Text('${rate.toStringAsFixed(0)}% Off'),
-                selected: isSelected,
-                selectedColor: AppColors.primary,
-                labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.black87),
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                  child: InkWell(
+                    onTap: () {
+                      HapticService.selectionClick();
+                      fin.updateDiscountPercentage(rate);
+                    },
+                    borderRadius: BorderRadius.circular(16),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                            : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isSelected ? AppColors.cyan : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                          width: isSelected ? 1.0 : 0.6,
+                        ),
+                      ),
+                      child: Text(
+                        '${rate.toStringAsFixed(0)}%',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
+                          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                          color: isSelected ? AppColors.cyan : (isDark ? Colors.white70 : Colors.black87),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                onSelected: (selected) {
-                  if (selected) fin.updateDiscountPercentage(rate);
-                },
               );
             }).toList(),
           ),
@@ -84,11 +173,12 @@ class DiscountView extends StatelessWidget {
             min: 0.0,
             max: 99.0,
             divisions: 99,
+            activeColor: AppColors.cyan,
             onChanged: (val) => fin.updateDiscountPercentage(val),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 12),
 
-          // Additional Discount (e.g. Extra 10% coupon)
+          // Additional Discount (Coupon) Card
           Card(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -98,10 +188,10 @@ class DiscountView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Additional Coupon Discount', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Extra Coupon Discount', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         '${fin.discountAdditionalPercentage.toStringAsFixed(0)} %',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.accent),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.rose),
                       ),
                     ],
                   ),
@@ -110,57 +200,11 @@ class DiscountView extends StatelessWidget {
                     min: 0.0,
                     max: 50.0,
                     divisions: 50,
-                    activeColor: AppColors.accent,
+                    activeColor: AppColors.rose,
                     onChanged: (val) => fin.updateDiscountAdditionalPercentage(val),
                   ),
                 ],
               ),
-            ),
-          ),
-          const SizedBox(height: 20),
-
-          // Final Savings Banner
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF3B82F6), Color(0xFF1D4ED8)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(20),
-            ),
-            child: Column(
-              children: [
-                const Text(
-                  'Final Discounted Price',
-                  style: TextStyle(color: Colors.white70, fontSize: 14),
-                ),
-                const SizedBox(height: 6),
-                Text(
-                  currencyFormatter.format(fin.finalDiscountedPrice),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const Divider(height: 24, color: Colors.white24),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Total You Save:', style: TextStyle(color: Colors.white, fontSize: 16)),
-                    Text(
-                      currencyFormatter.format(fin.totalDiscountSavings),
-                      style: const TextStyle(
-                        color: Color(0xFF4ADE80),
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
             ),
           ),
         ],
@@ -168,4 +212,3 @@ class DiscountView extends StatelessWidget {
     );
   }
 }
-

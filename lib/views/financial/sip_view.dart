@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -10,69 +11,69 @@ class SipView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final fin = context.watch<FinancialProvider>();
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     final currencyFormatter = NumberFormat.currency(locale: 'en_IN', symbol: '₹', decimalDigits: 0);
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         children: [
-          // Total Wealth Card
+          // Total Wealth Card (Ultra-Thin Minimalist)
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF059669), Color(0xFF10B981)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
+              color: isDark ? AppColors.darkCard : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                width: 0.6,
               ),
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.green.withValues(alpha: 0.3),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                )
-              ],
             ),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Expected Total Wealth',
-                  style: TextStyle(color: Colors.white70, fontSize: 14, fontWeight: FontWeight.w500),
+                Text(
+                  'EXPECTED TOTAL WEALTH',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  ),
                 ),
                 const SizedBox(height: 6),
                 Text(
                   currencyFormatter.format(fin.totalSipWealth),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 34,
-                    fontWeight: FontWeight.bold,
+                  style: GoogleFonts.inter(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w200,
+                    letterSpacing: -0.5,
+                    color: AppColors.teal,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
+                Divider(color: isDark ? AppColors.darkBorder : AppColors.lightBorder, height: 1),
+                const SizedBox(height: 14),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Invested Amount', style: TextStyle(color: Colors.white60, fontSize: 12)),
+                        Text('Invested Amount', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
                         const SizedBox(height: 2),
-                        Text(
-                          currencyFormatter.format(fin.totalSipInvested),
-                          style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                        ),
+                        Text(currencyFormatter.format(fin.totalSipInvested),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
                       ],
                     ),
-                    Container(height: 24, width: 1, color: Colors.white24),
                     Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        const Text('Est. Returns', style: TextStyle(color: Colors.white60, fontSize: 12)),
+                        Text('Est. Wealth Gains', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
                         const SizedBox(height: 2),
-                        Text(
-                          currencyFormatter.format(fin.totalSipReturns),
-                          style: const TextStyle(color: Color(0xFFFDE047), fontWeight: FontWeight.bold),
-                        ),
+                        Text(currencyFormatter.format(fin.totalSipReturns),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.teal)),
                       ],
                     ),
                   ],
@@ -80,7 +81,7 @@ class SipView extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
           // Monthly Investment Card
           Card(
@@ -92,10 +93,10 @@ class SipView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Monthly Investment', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Monthly Investment', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         currencyFormatter.format(fin.sipMonthlyInvestment),
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.secondary),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.teal),
                       ),
                     ],
                   ),
@@ -104,7 +105,7 @@ class SipView extends StatelessWidget {
                     min: 500,
                     max: 200000,
                     divisions: 100,
-                    activeColor: AppColors.secondary,
+                    activeColor: AppColors.teal,
                     onChanged: (val) => fin.updateSipMonthly(val),
                   ),
                 ],
@@ -123,10 +124,10 @@ class SipView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Expected Return (p.a.)', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Expected Return (p.a.)', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         '${fin.sipExpectedRate.toStringAsFixed(1)} %',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.secondary),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.teal),
                       ),
                     ],
                   ),
@@ -135,7 +136,7 @@ class SipView extends StatelessWidget {
                     min: 1.0,
                     max: 30.0,
                     divisions: 58,
-                    activeColor: AppColors.secondary,
+                    activeColor: AppColors.teal,
                     onChanged: (val) => fin.updateSipRate(val),
                   ),
                 ],
@@ -154,10 +155,10 @@ class SipView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text('Time Period (Years)', style: TextStyle(fontWeight: FontWeight.w600)),
+                      Text('Investment Tenure', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
                       Text(
                         '${fin.sipYears} Years',
-                        style: const TextStyle(fontWeight: FontWeight.bold, color: AppColors.secondary),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.teal),
                       ),
                     ],
                   ),
@@ -166,7 +167,7 @@ class SipView extends StatelessWidget {
                     min: 1,
                     max: 40,
                     divisions: 39,
-                    activeColor: AppColors.secondary,
+                    activeColor: AppColors.teal,
                     onChanged: (val) => fin.updateSipYears(val.toInt()),
                   ),
                 ],

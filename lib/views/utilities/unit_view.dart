@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
+import '../../core/utils/haptic_service.dart';
 import '../../providers/utility_provider.dart';
 
 class UnitView extends StatelessWidget {
@@ -16,7 +18,50 @@ class UnitView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Category Selector Chips
+          // Converted Result Banner (Ultra-Thin Minimalist)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(22),
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.darkCard : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                width: 0.6,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '${util.inputValue} ${util.fromUnit} =',
+                  style: GoogleFonts.inter(fontSize: 12, color: Colors.grey),
+                ),
+                const SizedBox(height: 6),
+                SelectableText(
+                  _formatOutput(util.convertedValue),
+                  style: GoogleFonts.inter(
+                    fontSize: 44,
+                    fontWeight: FontWeight.w200,
+                    letterSpacing: -0.5,
+                    color: AppColors.cyan,
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  util.toUnit,
+                  style: GoogleFonts.inter(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: isDark ? Colors.white70 : Colors.black87,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Category Selector Pills (Thin & Never Clipping)
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
@@ -24,17 +69,38 @@ class UnitView extends StatelessWidget {
                 final isSelected = util.selectedUnitCategory == cat;
                 return Padding(
                   padding: const EdgeInsets.only(right: 8.0),
-                  child: ChoiceChip(
-                    label: Text(cat),
-                    selected: isSelected,
-                    selectedColor: AppColors.primary,
-                    labelStyle: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.black87),
-                    ),
-                    onSelected: (selected) {
-                      if (selected) util.setCategory(cat);
+                  child: InkWell(
+                    onTap: () {
+                      HapticService.selectionClick();
+                      util.setCategory(cat);
                     },
+                    borderRadius: BorderRadius.circular(20),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                            : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(
+                          color: isSelected
+                              ? AppColors.cyan
+                              : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                          width: isSelected ? 1.0 : 0.6,
+                        ),
+                      ),
+                      child: Text(
+                        cat,
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                          color: isSelected
+                              ? AppColors.cyan
+                              : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
+                        ),
+                      ),
+                    ),
                   ),
                 );
               }).toList(),
@@ -49,15 +115,15 @@ class UnitView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Enter Value', style: TextStyle(color: Colors.grey, fontSize: 13)),
+                  Text('Enter Value', style: GoogleFonts.inter(color: Colors.grey, fontSize: 12)),
                   const SizedBox(height: 8),
                   TextFormField(
                     initialValue: util.inputValue.toString(),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w300),
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
                     ),
                     onChanged: (val) {
                       final parsed = double.tryParse(val);
@@ -85,7 +151,7 @@ class UnitView extends StatelessWidget {
                         value: util.availableUnits.contains(util.fromUnit) ? util.fromUnit : util.availableUnits.first,
                         isExpanded: true,
                         items: util.availableUnits.map((u) {
-                          return DropdownMenuItem(value: u, child: Text(u, style: const TextStyle(fontSize: 14)));
+                          return DropdownMenuItem(value: u, child: Text(u, style: GoogleFonts.inter(fontSize: 13)));
                         }).toList(),
                         onChanged: (val) {
                           if (val != null) util.setFromUnit(val);
@@ -115,7 +181,7 @@ class UnitView extends StatelessWidget {
                         value: util.availableUnits.contains(util.toUnit) ? util.toUnit : util.availableUnits.last,
                         isExpanded: true,
                         items: util.availableUnits.map((u) {
-                          return DropdownMenuItem(value: u, child: Text(u, style: const TextStyle(fontSize: 14)));
+                          return DropdownMenuItem(value: u, child: Text(u, style: GoogleFonts.inter(fontSize: 13)));
                         }).toList(),
                         onChanged: (val) {
                           if (val != null) util.setToUnit(val);
@@ -126,47 +192,6 @@ class UnitView extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-          const SizedBox(height: 24),
-
-          // Converted Result Banner
-          Container(
-            width: double.infinity,
-            padding: const EdgeInsets.all(24),
-            decoration: BoxDecoration(
-              gradient: const LinearGradient(
-                colors: [Color(0xFF6366F1), Color(0xFF4F46E5)],
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-              ),
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  '${util.inputValue} ${util.fromUnit} =',
-                  style: const TextStyle(color: Colors.white70, fontSize: 15),
-                ),
-                const SizedBox(height: 8),
-                SelectableText(
-                  _formatOutput(util.convertedValue),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 36,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  util.toUnit,
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ],
-            ),
           ),
         ],
       ),
@@ -185,4 +210,3 @@ class UnitView extends StatelessWidget {
     return s;
   }
 }
-

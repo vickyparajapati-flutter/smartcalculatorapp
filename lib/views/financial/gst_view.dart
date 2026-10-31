@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
+import '../../core/utils/haptic_service.dart';
 import '../../providers/financial_provider.dart';
 
 class GstView extends StatelessWidget {
@@ -12,7 +14,6 @@ class GstView extends StatelessWidget {
     final fin = context.watch<FinancialProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final currencyFormatter = NumberFormat.currency(locale: 'en_IN', symbol: '₹', decimalDigits: 2);
-
     final rates = [3.0, 5.0, 12.0, 18.0, 28.0];
 
     return SingleChildScrollView(
@@ -20,6 +21,95 @@ class GstView extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          // Total Gross Result Banner (Thin Luxury Card)
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(22),
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.darkCard : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                width: 0.6,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'TOTAL GROSS AMOUNT',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  ),
+                ),
+                const SizedBox(height: 6),
+                Text(
+                  currencyFormatter.format(fin.totalGstAmount),
+                  style: GoogleFonts.inter(
+                    fontSize: 36,
+                    fontWeight: FontWeight.w200,
+                    letterSpacing: -0.5,
+                    color: AppColors.cyan,
+                  ),
+                ),
+                const SizedBox(height: 14),
+                Divider(color: isDark ? AppColors.darkBorder : AppColors.lightBorder, height: 1),
+                const SizedBox(height: 14),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text('Base Net Price', style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
+                        const SizedBox(height: 2),
+                        Text(currencyFormatter.format(fin.netGstAmount),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
+                      ],
+                    ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Text('Total GST (${fin.gstRate.toStringAsFixed(0)}%)', style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
+                        const SizedBox(height: 2),
+                        Text(currencyFormatter.format(fin.calculatedGstTax),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.cyan)),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
+
+          // Exclusive vs Inclusive Toggle (Sleek Pills)
+          Row(
+            children: [
+              Expanded(
+                child: _buildToggleOption(
+                  label: '+ GST (Exclusive)',
+                  isSelected: !fin.isGstInclusive,
+                  onTap: () => fin.toggleGstInclusive(false),
+                  isDark: isDark,
+                ),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: _buildToggleOption(
+                  label: '− GST (Inclusive)',
+                  isSelected: fin.isGstInclusive,
+                  onTap: () => fin.toggleGstInclusive(true),
+                  isDark: isDark,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
+
           // Amount Input Card
           Card(
             child: Padding(
@@ -27,19 +117,14 @@ class GstView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text('Initial Amount', style: TextStyle(color: Colors.grey, fontSize: 13)),
+                  Text('Initial Amount', style: GoogleFonts.inter(color: Colors.grey, fontSize: 12)),
                   const SizedBox(height: 8),
                   TextFormField(
                     initialValue: fin.gstAmount.toStringAsFixed(0),
-                    keyboardType: TextInputType.number,
-                    style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-                    decoration: InputDecoration(
-                      prefixIcon: const Padding(
-                        padding: EdgeInsets.only(top: 6, left: 12),
-                        child: Text('₹', style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold)),
-                      ),
-                      border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-                      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                    keyboardType: const TextInputType.numberWithOptions(decimal: true),
+                    style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w300),
+                    decoration: const InputDecoration(
+                      prefixText: '₹ ',
                     ),
                     onChanged: (val) {
                       final parsed = double.tryParse(val);
@@ -52,107 +137,81 @@ class GstView extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 12),
-
-          // Exclusive vs Inclusive Toggle
-          SegmentedButton<bool>(
-            segments: const [
-              ButtonSegment<bool>(
-                value: false,
-                label: Text('GST Exclusive (+GST)'),
-                icon: Icon(Icons.add_circle_outline),
-              ),
-              ButtonSegment<bool>(
-                value: true,
-                label: Text('GST Inclusive (-GST)'),
-                icon: Icon(Icons.remove_circle_outline),
-              ),
-            ],
-            selected: {fin.isGstInclusive},
-            onSelectionChanged: (newSelection) {
-              fin.toggleGstInclusive(newSelection.first);
-            },
-          ),
           const SizedBox(height: 16),
 
-          // Quick GST Rate Chips
-          const Text('Select GST Rate (%)', style: TextStyle(fontWeight: FontWeight.w600, fontSize: 14)),
-          const SizedBox(height: 8),
+          // Rate Selector Chips (Thin Minimalist Pills)
+          Text(
+            'SELECT GST RATE',
+            style: GoogleFonts.inter(
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              letterSpacing: 1.0,
+              color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+            ),
+          ),
+          const SizedBox(height: 10),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: rates.map((rate) {
               final isSelected = fin.gstRate == rate;
-              return ChoiceChip(
-                label: Text('${rate.toStringAsFixed(0)}%'),
-                selected: isSelected,
-                selectedColor: AppColors.primary,
-                labelStyle: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  color: isSelected ? Colors.white : (isDark ? Colors.white70 : Colors.black87),
+              return Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 3.0),
+                  child: InkWell(
+                    onTap: () {
+                      HapticService.selectionClick();
+                      fin.updateGstRate(rate);
+                    },
+                    borderRadius: BorderRadius.circular(16),
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 150),
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: isSelected
+                            ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                            : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: isSelected ? AppColors.cyan : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                          width: isSelected ? 1.0 : 0.6,
+                        ),
+                      ),
+                      child: Text(
+                        '${rate.toStringAsFixed(0)}%',
+                        style: GoogleFonts.inter(
+                          fontSize: 13,
+                          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                          color: isSelected ? AppColors.cyan : (isDark ? Colors.white70 : Colors.black87),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                onSelected: (selected) {
-                  if (selected) fin.updateGstRate(rate);
-                },
               );
             }).toList(),
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
 
-          // Results Card
-          Container(
-            padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-              gradient: isDark
-                  ? const LinearGradient(
-                      colors: [Color(0xFF1E293B), Color(0xFF0F172A)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    )
-                  : const LinearGradient(
-                      colors: [Color(0xFFEEF2FF), Color(0xFFE0E7FF)],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
-            ),
-            child: Column(
-              children: [
-                _buildSummaryRow(
-                  'Net / Base Amount',
-                  currencyFormatter.format(fin.netGstAmount),
-                  isBold: false,
-                ),
-                const SizedBox(height: 10),
-                _buildSummaryRow(
-                  'CGST (${(fin.gstRate / 2).toStringAsFixed(1)}%)',
-                  currencyFormatter.format(fin.cgst),
-                  isBold: false,
-                  color: Colors.grey,
-                ),
-                const SizedBox(height: 6),
-                _buildSummaryRow(
-                  'SGST (${(fin.gstRate / 2).toStringAsFixed(1)}%)',
-                  currencyFormatter.format(fin.sgst),
-                  isBold: false,
-                  color: Colors.grey,
-                ),
-                const SizedBox(height: 10),
-                _buildSummaryRow(
-                  'Total GST Tax',
-                  currencyFormatter.format(fin.calculatedGstTax),
-                  isBold: true,
-                  color: AppColors.accent,
-                ),
-                const Divider(height: 24),
-                _buildSummaryRow(
-                  'Total Gross Price',
-                  currencyFormatter.format(fin.totalGstAmount),
-                  isBold: true,
-                  fontSize: 22,
-                  color: AppColors.primaryLight,
-                ),
-              ],
+          // Tax Split Breakdown (CGST & SGST)
+          Card(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  _buildSummaryRow(
+                    'CGST (${(fin.gstRate / 2).toStringAsFixed(1)}%)',
+                    currencyFormatter.format(fin.cgst),
+                    isDark: isDark,
+                  ),
+                  const SizedBox(height: 8),
+                  _buildSummaryRow(
+                    'SGST (${(fin.gstRate / 2).toStringAsFixed(1)}%)',
+                    currencyFormatter.format(fin.sgst),
+                    isDark: isDark,
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -160,22 +219,51 @@ class GstView extends StatelessWidget {
     );
   }
 
-  Widget _buildSummaryRow(String title, String value,
-      {bool isBold = false, double fontSize = 15, Color? color}) {
+  Widget _buildToggleOption({
+    required String label,
+    required bool isSelected,
+    required VoidCallback onTap,
+    required bool isDark,
+  }) {
+    return InkWell(
+      onTap: () {
+        HapticService.selectionClick();
+        onTap();
+      },
+      borderRadius: BorderRadius.circular(16),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 150),
+        padding: const EdgeInsets.symmetric(vertical: 11),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          color: isSelected
+              ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+              : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isSelected ? AppColors.cyan : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+            width: isSelected ? 1.0 : 0.6,
+          ),
+        ),
+        child: Text(
+          label,
+          style: GoogleFonts.inter(
+            fontSize: 13,
+            fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+            color: isSelected ? AppColors.cyan : (isDark ? Colors.white70 : Colors.black87),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSummaryRow(String title, String value, {required bool isDark}) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: TextStyle(fontSize: fontSize, fontWeight: isBold ? FontWeight.bold : FontWeight.w500)),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: fontSize,
-            fontWeight: isBold ? FontWeight.bold : FontWeight.w600,
-            color: color,
-          ),
-        ),
+        Text(title, style: GoogleFonts.inter(fontSize: 13, color: Colors.grey)),
+        Text(value, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500)),
       ],
     );
   }
 }
-

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
@@ -21,16 +22,20 @@ class AgeView extends StatelessWidget {
           // Birth Date Selector Card
           Card(
             child: ListTile(
-              leading: const CircleAvatar(
-                backgroundColor: AppColors.primary,
-                child: Icon(Icons.cake_rounded, color: Colors.white),
+              leading: Container(
+                padding: const EdgeInsets.all(8),
+                decoration: BoxDecoration(
+                  color: AppColors.cyan.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: const Icon(Icons.cake_outlined, color: AppColors.cyan, size: 20),
               ),
-              title: const Text('Date of Birth', style: TextStyle(fontSize: 13, color: Colors.grey)),
+              title: Text('Date of Birth', style: GoogleFonts.inter(fontSize: 12, color: Colors.grey)),
               subtitle: Text(
                 dateFormatter.format(util.birthDate),
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
               ),
-              trailing: FilledButton.tonal(
+              trailing: TextButton(
                 onPressed: () async {
                   final picked = await showDatePicker(
                     context: context,
@@ -42,74 +47,81 @@ class AgeView extends StatelessWidget {
                     util.updateBirthDate(picked);
                   }
                 },
-                child: const Text('Change'),
+                child: Text('Change', style: GoogleFonts.inter(color: AppColors.cyan, fontWeight: FontWeight.w500)),
               ),
             ),
           ),
           const SizedBox(height: 16),
 
-          // Primary Age Banner
+          // Primary Age Banner (Ultra-Thin Minimalist)
           Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(20),
+            padding: const EdgeInsets.all(22),
             decoration: BoxDecoration(
-              gradient: AppColors.primaryGradient,
-              borderRadius: BorderRadius.circular(24),
-              boxShadow: [
-                BoxShadow(
-                  color: AppColors.primary.withValues(alpha: 0.3),
-                  blurRadius: 12,
-                  offset: const Offset(0, 4),
-                )
-              ],
+              color: isDark ? AppColors.darkCard : Colors.white,
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                width: 0.6,
+              ),
             ),
             child: Column(
               children: [
-                const Text(
-                  'Your Current Age',
-                  style: TextStyle(color: Colors.white70, fontSize: 14),
+                Text(
+                  'CURRENT AGE',
+                  style: GoogleFonts.inter(
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    letterSpacing: 1.2,
+                    color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
+                  ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     _buildAgeUnit(age.years.toString(), 'Years'),
-                    Container(height: 36, width: 1, color: Colors.white24),
+                    Container(height: 30, width: 0.6, color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
                     _buildAgeUnit(age.months.toString(), 'Months'),
-                    Container(height: 36, width: 1, color: Colors.white24),
+                    Container(height: 30, width: 0.6, color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
                     _buildAgeUnit(age.days.toString(), 'Days'),
                   ],
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
 
-          // Next Birthday Card
+          // Next Birthday Card (Thin Minimalist)
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: isDark ? const Color(0xFF1E293B) : const Color(0xFFFEF3C7),
-              borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.amber.withValues(alpha: 0.4)),
+              color: isDark ? AppColors.darkCard : const Color(0xFFFEF3C7).withValues(alpha: 0.5),
+              borderRadius: BorderRadius.circular(16),
+              border: Border.all(
+                color: isDark ? AppColors.amber.withValues(alpha: 0.3) : Colors.amber.shade200,
+                width: 0.6,
+              ),
             ),
             child: Row(
               children: [
-                const Text('🎂', style: TextStyle(fontSize: 32)),
+                const Text('🎂', style: TextStyle(fontSize: 26)),
                 const SizedBox(width: 14),
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                      Text(
                         'Next Birthday',
-                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 14),
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        'Coming in ${age.nextBirthdayDays} days on a ${age.nextBirthdayDayOfWeek}!',
-                        style: TextStyle(
-                          fontSize: 13,
+                        age.nextBirthdayDays == 0
+                            ? 'Today is your Birthday! 🎉 Happy Birthday!'
+                            : 'In ${age.nextBirthdayDays} days on a ${age.nextBirthdayDayOfWeek}',
+                        style: GoogleFonts.inter(
+                          fontSize: 12,
                           color: isDark ? Colors.white70 : const Color(0xFF92400E),
                         ),
                       ),
@@ -119,7 +131,7 @@ class AgeView extends StatelessWidget {
               ],
             ),
           ),
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
 
           // Summary Stats Grid
           Row(
@@ -131,11 +143,11 @@ class AgeView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Total Months', style: TextStyle(color: Colors.grey, fontSize: 12)),
-                        const SizedBox(height: 6),
+                        Text('Total Months', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        const SizedBox(height: 4),
                         Text(
                           '${age.totalMonths}',
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.inter(fontSize: 22, fontWeight: FontWeight.w300),
                         ),
                       ],
                     ),
@@ -150,11 +162,11 @@ class AgeView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Total Days', style: TextStyle(color: Colors.grey, fontSize: 12)),
-                        const SizedBox(height: 6),
+                        Text('Total Days', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        const SizedBox(height: 4),
                         Text(
                           '${age.totalDays}',
-                          style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                          style: GoogleFonts.inter(fontSize: 22, fontWeight: FontWeight.w300),
                         ),
                       ],
                     ),
@@ -173,22 +185,21 @@ class AgeView extends StatelessWidget {
       children: [
         Text(
           value,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 32,
-            fontWeight: FontWeight.bold,
+          style: GoogleFonts.inter(
+            fontSize: 34,
+            fontWeight: FontWeight.w200,
+            color: AppColors.cyan,
           ),
         ),
         Text(
           unit,
-          style: const TextStyle(
-            color: Colors.white70,
-            fontSize: 12,
-            fontWeight: FontWeight.w500,
+          style: GoogleFonts.inter(
+            fontSize: 11,
+            color: Colors.grey,
+            fontWeight: FontWeight.w400,
           ),
         ),
       ],
     );
   }
 }
-
