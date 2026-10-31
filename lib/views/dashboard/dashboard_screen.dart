@@ -75,18 +75,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
           // Category Chips
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
             child: Row(
               children: [
-                _buildCategoryChip('All', null),
-                _buildCategoryChip('💰 Finance', CalculatorCategory.finance),
-                _buildCategoryChip('📐 Math', CalculatorCategory.math),
-                _buildCategoryChip('🩺 Health', CalculatorCategory.health),
-                _buildCategoryChip('⚡ Converters', CalculatorCategory.converter),
+                _buildCategoryChip('All', null, isDark),
+                _buildCategoryChip('💰 Finance', CalculatorCategory.finance, isDark),
+                _buildCategoryChip('📐 Math', CalculatorCategory.math, isDark),
+                _buildCategoryChip('🩺 Health', CalculatorCategory.health, isDark),
+                _buildCategoryChip('⚡ Converters', CalculatorCategory.converter, isDark),
               ],
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: 6),
 
           // Tools Grid
           Expanded(
@@ -98,7 +98,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       crossAxisCount: 2,
                       mainAxisSpacing: 12,
                       crossAxisSpacing: 12,
-                      childAspectRatio: 1.15,
+                      childAspectRatio: 1.06, // Ample height so card text never clips
                     ),
                     itemCount: filteredItems.length,
                     itemBuilder: (context, index) {
@@ -112,24 +112,45 @@ class _DashboardScreenState extends State<DashboardScreen> {
     );
   }
 
-  Widget _buildCategoryChip(String label, CalculatorCategory? category) {
+  Widget _buildCategoryChip(String label, CalculatorCategory? category, bool isDark) {
     final isSelected = _selectedCategory == category;
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
-      child: FilterChip(
-        label: Text(label),
-        selected: isSelected,
-        showCheckmark: false,
-        selectedColor: AppColors.primary,
-        labelStyle: TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.bold,
-          color: isSelected ? Colors.white : null,
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+          onTap: () {
+            HapticService.selectionClick();
+            setState(() => _selectedCategory = category);
+          },
+          borderRadius: BorderRadius.circular(20),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+            decoration: BoxDecoration(
+              color: isSelected
+                  ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                  : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
+              borderRadius: BorderRadius.circular(20),
+              border: Border.all(
+                color: isSelected
+                    ? AppColors.cyan
+                    : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                width: isSelected ? 1.0 : 0.6,
+              ),
+            ),
+            child: Text(
+              label,
+              style: GoogleFonts.inter(
+                fontSize: 13,
+                fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                color: isSelected
+                    ? AppColors.cyan
+                    : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
+              ),
+            ),
+          ),
         ),
-        onSelected: (_) {
-          HapticService.selectionClick();
-          setState(() => _selectedCategory = category);
-        },
       ),
     );
   }
