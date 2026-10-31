@@ -178,3 +178,4 @@ class GstView extends StatelessWidget {
     );
   }
 }
+

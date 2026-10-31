@@ -347,3 +347,4 @@ class _HistoryCard extends StatelessWidget {
     return '${dt.day}/${dt.month} ${dt.hour.toString().padLeft(2, '0')}:${dt.minute.toString().padLeft(2, '0')}';
   }
 }
+

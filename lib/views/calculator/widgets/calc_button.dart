@@ -27,27 +27,37 @@ class CalcButton extends StatelessWidget {
 
     Color bgColor;
     Color textColor;
+    double fontSize = 26;
+    FontWeight fontWeight = FontWeight.w600;
 
     switch (type) {
       case CalcButtonType.number:
-        bgColor = isDark ? const Color(0xFF1E293B) : Colors.white;
+        bgColor = isDark ? AppColors.darkNumKey : Colors.white;
         textColor = isDark ? Colors.white : const Color(0xFF0F172A);
         break;
       case CalcButtonType.operator:
-        bgColor = isDark ? const Color(0xFF334155) : const Color(0xFFE2E8F0);
-        textColor = AppColors.primaryLight;
+        bgColor = isDark ? const Color(0xFF312E81) : const Color(0xFFEEF2FF); // Indigo tint
+        textColor = isDark ? const Color(0xFFA5B4FC) : AppColors.primary;
+        fontSize = 28;
+        fontWeight = FontWeight.bold;
         break;
       case CalcButtonType.action:
-        bgColor = isDark ? const Color(0xFF334155).withValues(alpha: 0.6) : const Color(0xFFE2E8F0);
-        textColor = AppColors.danger;
+        bgColor = isDark ? const Color(0xFF26324A) : const Color(0xFFF1F5F9);
+        textColor = isDark ? const Color(0xFFF87171) : AppColors.danger;
+        fontSize = 20;
+        fontWeight = FontWeight.bold;
         break;
       case CalcButtonType.scientific:
-        bgColor = isDark ? const Color(0xFF1E293B).withValues(alpha: 0.8) : const Color(0xFFEEF2F6);
+        bgColor = isDark ? const Color(0xFF141D2E) : const Color(0xFFF1F5F9);
         textColor = isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569);
+        fontSize = 15;
+        fontWeight = FontWeight.w600;
         break;
       case CalcButtonType.equals:
         bgColor = AppColors.primary;
         textColor = Colors.white;
+        fontSize = 30;
+        fontWeight = FontWeight.bold;
         break;
     }
 
@@ -60,29 +70,47 @@ class CalcButton extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             onLongPress: onLongPress,
-            borderRadius: BorderRadius.circular(20),
+            borderRadius: BorderRadius.circular(22),
             child: Ink(
               decoration: BoxDecoration(
                 color: type == CalcButtonType.equals ? null : bgColor,
                 gradient: type == CalcButtonType.equals ? AppColors.equalsGradient : null,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: isDark
-                    ? null
-                    : [
+                borderRadius: BorderRadius.circular(22),
+                border: Border.all(
+                  color: isDark
+                      ? (type == CalcButtonType.equals
+                          ? Colors.transparent
+                          : AppColors.darkBorder.withValues(alpha: 0.6))
+                      : (type == CalcButtonType.equals
+                          ? Colors.transparent
+                          : AppColors.lightBorder),
+                  width: 1,
+                ),
+                boxShadow: type == CalcButtonType.equals
+                    ? [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.04),
-                          blurRadius: 6,
-                          offset: const Offset(0, 2),
-                        )
-                      ],
+                          color: AppColors.primary.withValues(alpha: 0.4),
+                          blurRadius: 10,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : (isDark
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.03),
+                              blurRadius: 4,
+                              offset: const Offset(0, 2),
+                            ),
+                          ]),
               ),
               child: Center(
                 child: icon ??
                     Text(
                       text,
                       style: TextStyle(
-                        fontSize: type == CalcButtonType.scientific ? 16 : 24,
-                        fontWeight: FontWeight.w600,
+                        fontSize: fontSize,
+                        fontWeight: fontWeight,
                         color: textColor,
                       ),
                     ),

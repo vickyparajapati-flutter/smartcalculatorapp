@@ -5,6 +5,7 @@ import 'core/theme/theme_provider.dart';
 import 'providers/calculator_provider.dart';
 import 'providers/financial_provider.dart';
 import 'providers/utility_provider.dart';
+import 'providers/tools_provider.dart';
 import 'views/home/home_screen.dart';
 
 void main() async {
@@ -16,6 +17,7 @@ void main() async {
         ChangeNotifierProvider(create: (_) => CalculatorProvider()),
         ChangeNotifierProvider(create: (_) => FinancialProvider()),
         ChangeNotifierProvider(create: (_) => UtilityProvider()),
+        ChangeNotifierProvider(create: (_) => ToolsProvider()),
       ],
       child: const SmartCalculatorApp(),
     ),

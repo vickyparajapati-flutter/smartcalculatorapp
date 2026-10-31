@@ -3,6 +3,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_calculator/providers/calculator_provider.dart';
 import 'package:smart_calculator/providers/financial_provider.dart';
 import 'package:smart_calculator/providers/utility_provider.dart';
+import 'package:smart_calculator/providers/tools_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -72,10 +73,9 @@ void main() {
     test('Loan EMI Calculation', () {
       final fin = FinancialProvider();
       fin.updateLoanPrincipal(100000);
-      fin.updateLoanRate(12); // 12% annual = 1% monthly
+      fin.updateLoanRate(12);
       fin.updateLoanTenureMonths(12);
 
-      // Monthly EMI for 100,000 at 12% for 12 months is approx 8884.88
       expect(fin.monthlyEmi.round(), 8885);
       expect(fin.totalLoanPayment > 100000, true);
     });
@@ -86,7 +86,6 @@ void main() {
       fin.updateSipRate(12);
       fin.updateSipYears(1);
 
-      // 5000/month for 1 year at 12% p.a.
       expect(fin.totalSipInvested, 60000);
       expect(fin.totalSipWealth > 60000, true);
     });
@@ -97,9 +96,56 @@ void main() {
       fin.updateDiscountPercentage(20);
       fin.updateDiscountAdditionalPercentage(10);
 
-      // 1000 - 20% = 800; 800 - 10% = 720
       expect(fin.finalDiscountedPrice, 720.0);
       expect(fin.totalDiscountSavings, 280.0);
+    });
+  });
+
+  group('ToolsProvider Tests (All-in-One Suite)', () {
+    test('Percentage calculations', () {
+      final tools = ToolsProvider();
+      tools.updateP1Percent(20);
+      tools.updateP1Total(500);
+      expect(tools.p1Result, 100.0);
+
+      tools.updateP2Part(50);
+      tools.updateP2Whole(200);
+      expect(tools.p2Result, 25.0);
+    });
+
+    test('Tip & Split Bill', () {
+      final tools = ToolsProvider();
+      tools.updateTipBill(1000);
+      tools.updateTipPercentage(10);
+      tools.updateTipSplitPeople(2);
+
+      expect(tools.totalTipAmount, 100.0);
+      expect(tools.totalBillWithTip, 1100.0);
+      expect(tools.totalPerPerson, 550.0);
+    });
+
+    test('Unit Price Comparison', () {
+      final tools = ToolsProvider();
+      // Item A: 100 for 500g (0.2/g)
+      // Item B: 150 for 1000g (0.15/g) -> Item B is cheaper
+      tools.updateItemA(100, 500);
+      tools.updateItemB(150, 1000);
+      expect(tools.cheaperItem, 2);
+    });
+
+    test('BMR & Calorie needs', () {
+      final tools = ToolsProvider();
+      tools.setBmrGender(true);
+      tools.setBmrData(weight: 70, height: 175, age: 25, multiplier: 1.2);
+      expect(tools.bmr > 1600, true);
+      expect(tools.dailyCaloriesMaintenance > tools.bmr, true);
+    });
+
+    test('Fuel cost calculation', () {
+      final tools = ToolsProvider();
+      tools.updateFuelData(distance: 200, mileage: 20, price: 100);
+      expect(tools.totalFuelNeededLiters, 10.0);
+      expect(tools.totalTripFuelCost, 1000.0);
     });
   });
 
@@ -107,7 +153,7 @@ void main() {
     test('BMI Calculation', () {
       final util = UtilityProvider();
       util.updateWeight(70);
-      util.updateHeight(175); // 1.75m -> 70 / (1.75 * 1.75) = 22.86 (Normal)
+      util.updateHeight(175);
 
       final res = util.bmiResult;
       expect(res.category, 'Normal / Healthy');

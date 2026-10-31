@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/haptic_service.dart';
 import '../calculator/calculator_screen.dart';
+import '../dashboard/dashboard_screen.dart';
 import '../financial/financial_screen.dart';
 import '../utilities/utilities_screen.dart';
 
@@ -15,10 +16,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
 
-  final List<Widget> _screens = const [
-    CalculatorScreen(),
-    FinancialScreen(),
-    UtilitiesScreen(),
+  final List<Widget> _screens = [
+    const CalculatorScreen(),
+    const DashboardScreen(),
+    const FinancialScreen(),
+    const UtilitiesScreen(),
   ];
 
   @override
@@ -38,13 +40,18 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
         },
-        backgroundColor: isDark ? const Color(0xFF0F172A) : Colors.white,
+        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
         indicatorColor: AppColors.primary.withValues(alpha: 0.15),
         destinations: const [
           NavigationDestination(
             icon: Icon(Icons.calculate_outlined),
             selectedIcon: Icon(Icons.calculate_rounded, color: AppColors.primary),
             label: 'Calculator',
+          ),
+          NavigationDestination(
+            icon: Icon(Icons.grid_view_outlined),
+            selectedIcon: Icon(Icons.grid_view_rounded, color: AppColors.primary),
+            label: 'All Tools (16+)',
           ),
           NavigationDestination(
             icon: Icon(Icons.account_balance_outlined),

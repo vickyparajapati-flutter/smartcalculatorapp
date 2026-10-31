@@ -44,3 +44,4 @@ class CalculationHistory {
   factory CalculationHistory.fromJson(String source) =>
       CalculationHistory.fromMap(json.decode(source));
 }
+
