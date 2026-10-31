@@ -108,3 +108,4 @@ class VaultContact {
   String toJson() => json.encode(toMap());
   factory VaultContact.fromJson(String source) => VaultContact.fromMap(json.decode(source));
 }
+

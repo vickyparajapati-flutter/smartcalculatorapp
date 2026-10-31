@@ -40,27 +40,27 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
         },
-        backgroundColor: isDark ? AppColors.darkBackground : Colors.white,
-        indicatorColor: AppColors.primary.withValues(alpha: 0.15),
-        destinations: const [
+        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
+        indicatorColor: isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15),
+        destinations: [
           NavigationDestination(
-            icon: Icon(Icons.calculate_outlined),
-            selectedIcon: Icon(Icons.calculate_rounded, color: AppColors.primary),
+            icon: const Icon(Icons.calculate_outlined),
+            selectedIcon: Icon(Icons.calculate_rounded, color: isDark ? AppColors.cyan : AppColors.primary),
             label: 'Calculator',
           ),
           NavigationDestination(
-            icon: Icon(Icons.grid_view_outlined),
-            selectedIcon: Icon(Icons.grid_view_rounded, color: AppColors.primary),
-            label: 'All Tools (16+)',
+            icon: const Icon(Icons.grid_view_outlined),
+            selectedIcon: Icon(Icons.grid_view_rounded, color: isDark ? AppColors.cyan : AppColors.primary),
+            label: 'All Tools (18+)',
           ),
           NavigationDestination(
-            icon: Icon(Icons.account_balance_outlined),
-            selectedIcon: Icon(Icons.account_balance_rounded, color: AppColors.primary),
+            icon: const Icon(Icons.account_balance_outlined),
+            selectedIcon: Icon(Icons.account_balance_rounded, color: isDark ? AppColors.cyan : AppColors.primary),
             label: 'Finance',
           ),
           NavigationDestination(
-            icon: Icon(Icons.widgets_outlined),
-            selectedIcon: Icon(Icons.widgets_rounded, color: AppColors.primary),
+            icon: const Icon(Icons.widgets_outlined),
+            selectedIcon: Icon(Icons.widgets_rounded, color: isDark ? AppColors.cyan : AppColors.primary),
             label: 'Utilities',
           ),
         ],

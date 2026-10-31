@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/theme/theme_provider.dart';
@@ -35,7 +36,7 @@ class CalculatorScreen extends StatelessWidget {
                       // Quick All Tools Hub Button
                       FilledButton.tonalIcon(
                         icon: const Icon(Icons.grid_view_rounded, size: 16),
-                        label: const Text('All Tools (16+)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+                        label: const Text('All Tools (18+)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
                         style: FilledButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           visualDensity: VisualDensity.compact,
@@ -132,11 +133,11 @@ class CalculatorScreen extends StatelessWidget {
                         alignment: Alignment.centerRight,
                         child: SelectableText(
                           calc.expression,
-                          style: TextStyle(
-                            fontSize: 50,
+                          style: GoogleFonts.outfit(
+                            fontSize: 52,
                             fontWeight: FontWeight.w400,
-                            letterSpacing: 1.1,
-                            color: isDark ? Colors.white : const Color(0xFF0F172A),
+                            letterSpacing: 1.2,
+                            color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
                           ),
                         ),
                       ),
@@ -146,10 +147,10 @@ class CalculatorScreen extends StatelessWidget {
                       if (calc.liveResult.isNotEmpty)
                         Text(
                           '= ${calc.liveResult}',
-                          style: const TextStyle(
-                            fontSize: 26,
+                          style: GoogleFonts.outfit(
+                            fontSize: 28,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.primaryLight,
+                            color: AppColors.cyan,
                           ),
                         )
                       else

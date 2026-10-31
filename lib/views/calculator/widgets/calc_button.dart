@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../../core/constants/app_colors.dart';
 
 enum CalcButtonType { number, operator, action, equals, scientific }
@@ -32,31 +33,33 @@ class CalcButton extends StatelessWidget {
 
     switch (type) {
       case CalcButtonType.number:
-        bgColor = isDark ? AppColors.darkNumKey : Colors.white;
-        textColor = isDark ? Colors.white : const Color(0xFF0F172A);
+        bgColor = isDark ? AppColors.darkNumKey : AppColors.lightNumKey;
+        textColor = isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
+        fontSize = 27;
+        fontWeight = FontWeight.w600;
         break;
       case CalcButtonType.operator:
-        bgColor = isDark ? const Color(0xFF312E81) : const Color(0xFFEEF2FF); // Indigo tint
-        textColor = isDark ? const Color(0xFFA5B4FC) : AppColors.primary;
-        fontSize = 28;
+        bgColor = isDark ? AppColors.darkOpKey : AppColors.lightOpKey;
+        textColor = isDark ? AppColors.cyan : AppColors.primaryDark;
+        fontSize = 29;
         fontWeight = FontWeight.bold;
         break;
       case CalcButtonType.action:
-        bgColor = isDark ? const Color(0xFF26324A) : const Color(0xFFF1F5F9);
-        textColor = isDark ? const Color(0xFFF87171) : AppColors.danger;
-        fontSize = 20;
+        bgColor = isDark ? AppColors.darkActionKey : AppColors.lightActionKey;
+        textColor = isDark ? AppColors.rose : AppColors.danger;
+        fontSize = 21;
         fontWeight = FontWeight.bold;
         break;
       case CalcButtonType.scientific:
-        bgColor = isDark ? const Color(0xFF141D2E) : const Color(0xFFF1F5F9);
-        textColor = isDark ? const Color(0xFF94A3B8) : const Color(0xFF475569);
+        bgColor = isDark ? const Color(0xFF1B2630) : const Color(0xFFE2E8F0);
+        textColor = isDark ? AppColors.cyan.withValues(alpha: 0.9) : AppColors.primaryDark;
         fontSize = 15;
         fontWeight = FontWeight.w600;
         break;
       case CalcButtonType.equals:
         bgColor = AppColors.primary;
         textColor = Colors.white;
-        fontSize = 30;
+        fontSize = 32;
         fontWeight = FontWeight.bold;
         break;
     }
@@ -80,35 +83,33 @@ class CalcButton extends StatelessWidget {
                   color: isDark
                       ? (type == CalcButtonType.equals
                           ? Colors.transparent
-                          : AppColors.darkBorder.withValues(alpha: 0.6))
+                          : AppColors.darkBorder.withValues(alpha: 0.7))
                       : (type == CalcButtonType.equals
                           ? Colors.transparent
                           : AppColors.lightBorder),
-                  width: 1,
+                  width: 1.2,
                 ),
                 boxShadow: type == CalcButtonType.equals
                     ? [
                         BoxShadow(
-                          color: AppColors.primary.withValues(alpha: 0.4),
-                          blurRadius: 10,
+                          color: AppColors.cyan.withValues(alpha: 0.4),
+                          blurRadius: 12,
                           offset: const Offset(0, 4),
                         ),
                       ]
-                    : (isDark
-                        ? null
-                        : [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.03),
-                              blurRadius: 4,
-                              offset: const Offset(0, 2),
-                            ),
-                          ]),
+                    : [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.04),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
               ),
               child: Center(
                 child: icon ??
                     Text(
                       text,
-                      style: TextStyle(
+                      style: GoogleFonts.outfit(
                         fontSize: fontSize,
                         fontWeight: fontWeight,
                         color: textColor,

@@ -48,7 +48,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('All Calculators (16+)'),
+        title: const Text('All Calculators (18+)'),
       ),
       body: Column(
         children: [
