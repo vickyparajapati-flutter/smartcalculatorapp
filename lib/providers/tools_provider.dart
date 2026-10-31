@@ -242,6 +242,68 @@ class ToolsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ==================== CURRENCY CONVERTER ====================
+  String _fromCurrency = 'USD';
+  String _toCurrency = 'INR';
+  double _currencyAmount = 100.0;
+
+  String get fromCurrency => _fromCurrency;
+  String get toCurrency => _toCurrency;
+  double get currencyAmount => _currencyAmount;
+
+  // Standard rates base: 1 USD
+  final Map<String, double> _usdRates = {
+    'USD': 1.0,
+    'INR': 84.50,
+    'EUR': 0.92,
+    'GBP': 0.77,
+    'AED': 3.67,
+    'SAR': 3.75,
+    'CAD': 1.38,
+    'AUD': 1.51,
+    'JPY': 152.3,
+    'SGD': 1.32,
+    'CNY': 7.12,
+    'CHF': 0.86,
+    'KWD': 0.31,
+    'QAR': 3.64,
+    'MYR': 4.38,
+    'THB': 33.7,
+  };
+
+  List<String> get availableCurrencies => _usdRates.keys.toList();
+
+  double get convertedCurrencyAmount {
+    double fromRate = _usdRates[_fromCurrency] ?? 1.0;
+    double toRate = _usdRates[_toCurrency] ?? 1.0;
+    // Amount in USD = amount / fromRate
+    double amountInUsd = _currencyAmount / fromRate;
+    return amountInUsd * toRate;
+  }
+
+  void setCurrencyAmount(double val) {
+    _currencyAmount = val;
+    notifyListeners();
+  }
+
+  void setFromCurrency(String curr) {
+    _fromCurrency = curr;
+    notifyListeners();
+  }
+
+  void setToCurrency(String curr) {
+    _toCurrency = curr;
+    notifyListeners();
+  }
+
+  void swapCurrencies() {
+    HapticService.lightClick();
+    final temp = _fromCurrency;
+    _fromCurrency = _toCurrency;
+    _toCurrency = temp;
+    notifyListeners();
+  }
+
   // ==================== DATE & DAYS CALCULATOR ====================
   DateTime _dateFrom = DateTime.now();
   DateTime _dateTo = DateTime.now().add(const Duration(days: 30));

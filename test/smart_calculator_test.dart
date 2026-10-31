@@ -4,6 +4,7 @@ import 'package:smart_calculator/providers/calculator_provider.dart';
 import 'package:smart_calculator/providers/financial_provider.dart';
 import 'package:smart_calculator/providers/utility_provider.dart';
 import 'package:smart_calculator/providers/tools_provider.dart';
+import 'package:smart_calculator/providers/vault_provider.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -178,6 +179,52 @@ void main() {
       util.setInputValue(2.5);
 
       expect(util.convertedValue, 2500.0);
+    });
+  });
+
+  group('VaultProvider Tests (Secret Calculator Lock)', () {
+    test('Setup Vault & Master PIN Unlock', () async {
+      final vault = VaultProvider();
+      await vault.setupVault('7788', 'What is your city?', 'mumbai');
+
+      expect(vault.isConfigured, true);
+      expect(vault.isUnlocked, true);
+
+      vault.lock();
+      expect(vault.isUnlocked, false);
+
+      final res1 = vault.unlock('1111');
+      expect(res1, VaultUnlockResult.failed);
+      expect(vault.isUnlocked, false);
+
+      final res2 = vault.unlock('7788');
+      expect(res2, VaultUnlockResult.success);
+      expect(vault.isUnlocked, true);
+      expect(vault.isDecoyMode, false);
+    });
+
+    test('Decoy PIN Unlock', () async {
+      final vault = VaultProvider();
+      await vault.setupVault('7788', 'What is your city?', 'mumbai');
+      await vault.setDecoyPin('0000');
+
+      vault.lock();
+      final res = vault.unlock('0000');
+      expect(res, VaultUnlockResult.decoy);
+      expect(vault.isUnlocked, true);
+      expect(vault.isDecoyMode, true);
+    });
+
+    test('Secret Notes Add & Delete', () async {
+      final vault = VaultProvider();
+      await vault.setupVault('7788', 'Question?', 'answer');
+
+      await vault.addNote('Bank PIN', '1234');
+      expect(vault.notes.length, 1);
+      expect(vault.notes.first.title, 'Bank PIN');
+
+      await vault.deleteNote(vault.notes.first.id);
+      expect(vault.notes.isEmpty, true);
     });
   });
 }

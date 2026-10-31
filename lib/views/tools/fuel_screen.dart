@@ -108,3 +108,4 @@ class FuelScreen extends StatelessWidget {
     );
   }
 }
+

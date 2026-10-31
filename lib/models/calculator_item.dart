@@ -171,6 +171,36 @@ class CalculatorItem {
 
     // --- Converters & Utilities ---
     CalculatorItem(
+      id: 'vault_tool',
+      title: 'Secret Calculator Vault',
+      subtitle: 'Hide private photos, notes & contacts behind a PIN',
+      icon: Icons.lock_outline_rounded,
+      category: CalculatorCategory.converter,
+      primaryColor: Color(0xFFE11D48),
+      secondaryColor: Color(0xFFBE123C),
+      isPopular: true,
+    ),
+    CalculatorItem(
+      id: 'currency_calc',
+      title: 'Currency Converter',
+      subtitle: '30+ world currencies (USD, INR, EUR, AED...)',
+      icon: Icons.currency_exchange_rounded,
+      category: CalculatorCategory.converter,
+      primaryColor: Color(0xFF059669),
+      secondaryColor: Color(0xFF047857),
+      isPopular: true,
+    ),
+    CalculatorItem(
+      id: 'gst_invoice_calc',
+      title: 'GST Invoice & Bill Maker',
+      subtitle: 'Generate printable tax receipts with CGST/SGST',
+      icon: Icons.receipt_rounded,
+      category: CalculatorCategory.finance,
+      primaryColor: Color(0xFF6366F1),
+      secondaryColor: Color(0xFF4F46E5),
+      isPopular: true,
+    ),
+    CalculatorItem(
       id: 'unit_calc',
       title: 'Unit Converter',
       subtitle: 'Length, weight, speed, temp & storage',
@@ -191,3 +221,4 @@ class CalculatorItem {
     ),
   ];
 }
+

@@ -17,6 +17,9 @@ import '../tools/bmr_screen.dart';
 import '../tools/water_screen.dart';
 import '../tools/fuel_screen.dart';
 import '../tools/date_screen.dart';
+import '../tools/currency_screen.dart';
+import '../tools/gst_invoice_screen.dart';
+import '../vault/vault_setup_dialog.dart';
 
 class DashboardScreen extends StatefulWidget {
   final Function(int index)? onSwitchTab;
@@ -234,6 +237,15 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _openTool(BuildContext context, String toolId) {
     Widget? page;
     switch (toolId) {
+      case 'currency_calc':
+        page = const CurrencyScreen();
+        break;
+      case 'gst_invoice_calc':
+        page = const GstInvoiceScreen();
+        break;
+      case 'vault_tool':
+        VaultSetupDialog.show(context);
+        return;
       case 'percentage_calc':
         page = const PercentageCalculatorScreen();
         break;
@@ -286,3 +298,4 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
   }
 }
+

@@ -4,7 +4,10 @@ import '../../core/constants/app_colors.dart';
 import '../../core/theme/theme_provider.dart';
 import '../../core/utils/haptic_service.dart';
 import '../../providers/calculator_provider.dart';
+import '../../providers/vault_provider.dart';
 import '../dashboard/dashboard_screen.dart';
+import '../vault/vault_home_screen.dart';
+import '../vault/vault_setup_dialog.dart';
 import 'widgets/calc_button.dart';
 import 'widgets/history_sheet.dart';
 
@@ -325,7 +328,25 @@ class CalculatorScreen extends StatelessWidget {
                       CalcButton(
                         text: '=',
                         type: CalcButtonType.equals,
-                        onTap: () => calc.equals(),
+                        onTap: () {
+                          final vault = context.read<VaultProvider>();
+                          if (vault.isConfigured) {
+                            final res = vault.unlock(calc.rawExpression);
+                            if (res != VaultUnlockResult.failed) {
+                              calc.clear();
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(builder: (_) => const VaultHomeScreen()),
+                              );
+                              return;
+                            }
+                          }
+                          calc.equals();
+                        },
+                        onLongPress: () {
+                          HapticService.mediumClick();
+                          VaultSetupDialog.show(context);
+                        },
                       ),
                     ],
                   ),
