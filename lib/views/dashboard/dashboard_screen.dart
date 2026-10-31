@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/haptic_service.dart';
 import '../../models/calculator_item.dart';
@@ -148,17 +149,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
             borderRadius: BorderRadius.circular(20),
             border: Border.all(
               color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-              width: 1.2,
+              width: 0.6,
             ),
-            boxShadow: isDark
-                ? null
-                : [
-                    BoxShadow(
-                      color: Colors.black.withValues(alpha: 0.04),
-                      blurRadius: 10,
-                      offset: const Offset(0, 4),
-                    ),
-                  ],
           ),
           padding: const EdgeInsets.all(14),
           child: Column(
@@ -169,7 +161,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    padding: const EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(9),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [item.primaryColor, item.secondaryColor],
@@ -177,29 +169,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
                         end: Alignment.bottomRight,
                       ),
                       borderRadius: BorderRadius.circular(14),
-                      boxShadow: [
-                        BoxShadow(
-                          color: item.primaryColor.withValues(alpha: 0.35),
-                          blurRadius: 8,
-                          offset: const Offset(0, 3),
-                        ),
-                      ],
                     ),
-                    child: Icon(item.icon, color: Colors.white, size: 22),
+                    child: Icon(item.icon, color: Colors.white, size: 20),
                   ),
                   if (item.isPopular)
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: AppColors.amber.withValues(alpha: 0.2),
+                        color: AppColors.cyan.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
-                      child: const Text(
-                        '★ HOT',
-                        style: TextStyle(
-                          color: AppColors.amber,
+                      child: Text(
+                        'POPULAR',
+                        style: GoogleFonts.inter(
+                          color: AppColors.cyan,
                           fontSize: 9,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w600,
+                          letterSpacing: 0.5,
                         ),
                       ),
                     ),
@@ -212,17 +198,18 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     item.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                    style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 13.5),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     item.subtitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: GoogleFonts.inter(
                       fontSize: 11,
+                      fontWeight: FontWeight.w300,
                       color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-                      height: 1.2,
+                      height: 1.25,
                     ),
                   ),
                 ],

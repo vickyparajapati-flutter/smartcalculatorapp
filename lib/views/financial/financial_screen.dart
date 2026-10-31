@@ -18,8 +18,8 @@ class FinancialScreen extends StatelessWidget {
           bottom: const TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            indicatorColor: AppColors.primary,
-            labelColor: AppColors.primary,
+            indicatorColor: AppColors.cyan,
+            labelColor: AppColors.cyan,
             tabs: [
               Tab(icon: Icon(Icons.receipt_rounded), text: 'GST Tax'),
               Tab(icon: Icon(Icons.account_balance_rounded), text: 'Loan EMI'),

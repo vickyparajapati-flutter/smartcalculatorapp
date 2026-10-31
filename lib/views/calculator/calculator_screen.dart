@@ -25,7 +25,7 @@ class CalculatorScreen extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            // Top App Bar Controls
+            // Minimalist Top App Bar Controls
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
               child: Row(
@@ -33,40 +33,74 @@ class CalculatorScreen extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      // Quick All Tools Hub Button
-                      FilledButton.tonalIcon(
-                        icon: const Icon(Icons.grid_view_rounded, size: 16),
-                        label: const Text('All Tools (18+)', style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
-                        style: FilledButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                          visualDensity: VisualDensity.compact,
-                        ),
-                        onPressed: () {
+                      // Thin Frosted All Tools Pill
+                      InkWell(
+                        onTap: () {
                           HapticService.lightClick();
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (_) => const DashboardScreen()),
                           );
                         },
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: isDark ? const Color(0xFF162029) : const Color(0xFFEDF2F7),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                              width: 0.6,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Icon(Icons.grid_view_rounded, size: 14, color: isDark ? AppColors.cyan : AppColors.primary),
+                              const SizedBox(width: 6),
+                              Text(
+                                'All Tools (18+)',
+                                style: GoogleFonts.inter(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
                       ),
                       const SizedBox(width: 8),
 
-                      // Scientific toggle pill
-                      FilterChip(
-                        label: const Text('fx'),
-                        selected: calc.isScientificExpanded,
-                        onSelected: (_) => calc.toggleScientific(),
-                        showCheckmark: false,
-                        backgroundColor: isDark ? AppColors.darkCard : AppColors.lightKeypadBg,
-                        selectedColor: AppColors.primary,
-                        labelStyle: TextStyle(
-                          fontSize: 13,
-                          fontWeight: FontWeight.bold,
-                          color: calc.isScientificExpanded
-                              ? Colors.white
-                              : (isDark ? Colors.white70 : Colors.black87),
+                      // Thin Scientific toggle pill
+                      InkWell(
+                        onTap: () => calc.toggleScientific(),
+                        borderRadius: BorderRadius.circular(20),
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                          decoration: BoxDecoration(
+                            color: calc.isScientificExpanded
+                                ? (isDark ? AppColors.cyan.withValues(alpha: 0.15) : AppColors.primary.withValues(alpha: 0.15))
+                                : (isDark ? const Color(0xFF162029) : const Color(0xFFEDF2F7)),
+                            borderRadius: BorderRadius.circular(20),
+                            border: Border.all(
+                              color: calc.isScientificExpanded
+                                  ? AppColors.cyan
+                                  : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                              width: 0.6,
+                            ),
+                          ),
+                          child: Text(
+                            'fx',
+                            style: GoogleFonts.inter(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w500,
+                              color: calc.isScientificExpanded
+                                  ? AppColors.cyan
+                                  : (isDark ? Colors.white60 : Colors.black54),
+                            ),
+                          ),
                         ),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
                       ),
                     ],
                   ),
@@ -78,9 +112,10 @@ class CalculatorScreen extends StatelessWidget {
                         tooltip: 'Toggle Theme',
                         icon: Icon(
                           themeProvider.isDarkMode
-                              ? Icons.light_mode_rounded
-                              : Icons.dark_mode_rounded,
-                          color: isDark ? Colors.amber : Colors.indigo,
+                              ? Icons.light_mode_outlined
+                              : Icons.dark_mode_outlined,
+                          size: 20,
+                          color: isDark ? Colors.amber.shade300 : AppColors.primaryDark,
                         ),
                         onPressed: () => themeProvider.toggleTheme(),
                       ),
@@ -90,7 +125,7 @@ class CalculatorScreen extends StatelessWidget {
                         children: [
                           IconButton(
                             tooltip: 'Smart Tape / History',
-                            icon: const Icon(Icons.history_rounded),
+                            icon: const Icon(Icons.history_rounded, size: 20),
                             onPressed: () => HistorySheet.show(context),
                           ),
                           if (calc.history.isNotEmpty)
@@ -98,12 +133,12 @@ class CalculatorScreen extends StatelessWidget {
                               right: 6,
                               top: 6,
                               child: Container(
-                                padding: const EdgeInsets.all(4),
+                                padding: const EdgeInsets.all(3),
                                 decoration: const BoxDecoration(
-                                  color: AppColors.rose,
+                                  color: AppColors.cyan,
                                   shape: BoxShape.circle,
                                 ),
-                                constraints: const BoxConstraints(minWidth: 8, minHeight: 8),
+                                constraints: const BoxConstraints(minWidth: 6, minHeight: 6),
                               ),
                             ),
                         ],
@@ -114,7 +149,7 @@ class CalculatorScreen extends StatelessWidget {
               ),
             ),
 
-            // Calculation Display Area
+            // Calculation Display Area (Ultra-Thin Floating Typography)
             Expanded(
               flex: 3,
               child: Container(
@@ -127,29 +162,30 @@ class CalculatorScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Active Expression
+                      // Giant Ultra-Thin Active Expression
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerRight,
                         child: SelectableText(
                           calc.expression,
-                          style: GoogleFonts.outfit(
-                            fontSize: 52,
-                            fontWeight: FontWeight.w400,
-                            letterSpacing: 1.2,
+                          style: GoogleFonts.inter(
+                            fontSize: 60,
+                            fontWeight: FontWeight.w200, // True luxury thin weight
+                            letterSpacing: -1.0,
                             color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
                           ),
                         ),
                       ),
-                      const SizedBox(height: 6),
+                      const SizedBox(height: 4),
 
-                      // Live Result Preview
+                      // Delicate Live Result Preview
                       if (calc.liveResult.isNotEmpty)
                         Text(
                           '= ${calc.liveResult}',
-                          style: GoogleFonts.outfit(
-                            fontSize: 28,
-                            fontWeight: FontWeight.w600,
+                          style: GoogleFonts.inter(
+                            fontSize: 26,
+                            fontWeight: FontWeight.w300,
+                            letterSpacing: 0.2,
                             color: AppColors.cyan,
                           ),
                         )
@@ -161,23 +197,13 @@ class CalculatorScreen extends StatelessWidget {
               ),
             ),
 
-            // Keypad Container
-            Container(
-              decoration: BoxDecoration(
-                color: isDark ? AppColors.darkKeypadBg : AppColors.lightKeypadBg,
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(28)),
-                border: Border(
-                  top: BorderSide(
-                    color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-                    width: 1,
-                  ),
-                ),
-              ),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+            // Keypad Area (Seamless edge-to-edge design)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // Expandable Scientific Drawer
+                  // Expandable Scientific Drawer (Thin & Delicate)
                   if (calc.isScientificExpanded) ...[
                     Row(
                       children: [
@@ -233,13 +259,13 @@ class CalculatorScreen extends StatelessWidget {
                         CalcButton(
                           text: ')',
                           type: CalcButtonType.scientific,
-                          onTap: () => calc.append(')'),
+                          onTap: () => calc.append('('),
                         ),
                       ],
                     ),
                   ],
 
-                  // Standard 4x5 Keypad
+                  // Standard 4x5 Keypad (Thin & Floating)
                   // Row 1
                   Row(
                     children: [
@@ -293,7 +319,7 @@ class CalculatorScreen extends StatelessWidget {
                       CalcButton(text: '5', onTap: () => calc.append('5')),
                       CalcButton(text: '6', onTap: () => calc.append('6')),
                       CalcButton(
-                        text: '-',
+                        text: '−',
                         type: CalcButtonType.operator,
                         onTap: () => calc.append('-'),
                       ),
@@ -322,7 +348,7 @@ class CalculatorScreen extends StatelessWidget {
                       CalcButton(
                         text: '⌫',
                         type: CalcButtonType.action,
-                        icon: const Icon(Icons.backspace_outlined, size: 22, color: AppColors.danger),
+                        icon: const Icon(Icons.backspace_outlined, size: 20, color: AppColors.rose),
                         onTap: () => calc.delete(),
                         onLongPress: () => calc.clear(),
                       ),

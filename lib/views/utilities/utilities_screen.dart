@@ -15,8 +15,8 @@ class UtilitiesScreen extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Daily Utilities'),
           bottom: const TabBar(
-            indicatorColor: AppColors.primary,
-            labelColor: AppColors.primary,
+            indicatorColor: AppColors.cyan,
+            labelColor: AppColors.cyan,
             tabs: [
               Tab(icon: Icon(Icons.favorite_rounded), text: 'BMI Health'),
               Tab(icon: Icon(Icons.cake_rounded), text: 'Age Calc'),

@@ -28,39 +28,39 @@ class CalcButton extends StatelessWidget {
 
     Color bgColor;
     Color textColor;
-    double fontSize = 26;
-    FontWeight fontWeight = FontWeight.w600;
+    double fontSize = 28;
+    FontWeight fontWeight = FontWeight.w300; // Ultra-thin luxury weight
 
     switch (type) {
       case CalcButtonType.number:
         bgColor = isDark ? AppColors.darkNumKey : AppColors.lightNumKey;
         textColor = isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
-        fontSize = 27;
-        fontWeight = FontWeight.w600;
+        fontSize = 28;
+        fontWeight = FontWeight.w300; // Thin & sleek
         break;
       case CalcButtonType.operator:
         bgColor = isDark ? AppColors.darkOpKey : AppColors.lightOpKey;
-        textColor = isDark ? AppColors.cyan : AppColors.primaryDark;
-        fontSize = 29;
-        fontWeight = FontWeight.bold;
+        textColor = isDark ? AppColors.cyan : AppColors.primary;
+        fontSize = 28;
+        fontWeight = FontWeight.w300; // Thin mathematical glyphs
         break;
       case CalcButtonType.action:
         bgColor = isDark ? AppColors.darkActionKey : AppColors.lightActionKey;
         textColor = isDark ? AppColors.rose : AppColors.danger;
-        fontSize = 21;
-        fontWeight = FontWeight.bold;
+        fontSize = 18;
+        fontWeight = FontWeight.w400;
         break;
       case CalcButtonType.scientific:
-        bgColor = isDark ? const Color(0xFF1B2630) : const Color(0xFFE2E8F0);
-        textColor = isDark ? AppColors.cyan.withValues(alpha: 0.9) : AppColors.primaryDark;
-        fontSize = 15;
-        fontWeight = FontWeight.w600;
+        bgColor = isDark ? const Color(0xFF131B22) : const Color(0xFFEDF2F7);
+        textColor = isDark ? AppColors.cyan.withValues(alpha: 0.8) : AppColors.primaryDark;
+        fontSize = 14;
+        fontWeight = FontWeight.w400;
         break;
       case CalcButtonType.equals:
         bgColor = AppColors.primary;
         textColor = Colors.white;
         fontSize = 32;
-        fontWeight = FontWeight.bold;
+        fontWeight = FontWeight.w300;
         break;
     }
 
@@ -73,46 +73,26 @@ class CalcButton extends StatelessWidget {
           child: InkWell(
             onTap: onTap,
             onLongPress: onLongPress,
-            borderRadius: BorderRadius.circular(22),
+            borderRadius: BorderRadius.circular(26),
             child: Ink(
               decoration: BoxDecoration(
                 color: type == CalcButtonType.equals ? null : bgColor,
                 gradient: type == CalcButtonType.equals ? AppColors.equalsGradient : null,
-                borderRadius: BorderRadius.circular(22),
+                borderRadius: BorderRadius.circular(26),
                 border: Border.all(
-                  color: isDark
-                      ? (type == CalcButtonType.equals
-                          ? Colors.transparent
-                          : AppColors.darkBorder.withValues(alpha: 0.7))
-                      : (type == CalcButtonType.equals
-                          ? Colors.transparent
-                          : AppColors.lightBorder),
-                  width: 1.2,
+                  color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
+                  width: 0.6, // Hairline thin border
                 ),
-                boxShadow: type == CalcButtonType.equals
-                    ? [
-                        BoxShadow(
-                          color: AppColors.cyan.withValues(alpha: 0.4),
-                          blurRadius: 12,
-                          offset: const Offset(0, 4),
-                        ),
-                      ]
-                    : [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: isDark ? 0.15 : 0.04),
-                          blurRadius: 4,
-                          offset: const Offset(0, 2),
-                        ),
-                      ],
               ),
               child: Center(
                 child: icon ??
                     Text(
                       text,
-                      style: GoogleFonts.outfit(
+                      style: GoogleFonts.inter(
                         fontSize: fontSize,
                         fontWeight: fontWeight,
                         color: textColor,
+                        letterSpacing: 0.5,
                       ),
                     ),
               ),
