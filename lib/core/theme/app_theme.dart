@@ -11,10 +11,10 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.darkBackground,
       textTheme: GoogleFonts.interTextTheme(baseTextTheme),
       colorScheme: const ColorScheme.dark(
-        primary: AppColors.cyan,
-        secondary: AppColors.teal,
+        primary: AppColors.primaryLight,
+        secondary: AppColors.primary,
         surface: AppColors.darkSurface,
-        onPrimary: Colors.black,
+        onPrimary: Colors.white,
         onSurface: AppColors.darkTextPrimary,
       ),
       cardTheme: CardThemeData(
@@ -50,7 +50,7 @@ class AppTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: const BorderSide(color: AppColors.cyan, width: 1.2),
+          borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.2),
         ),
       ),
     );
@@ -65,7 +65,7 @@ class AppTheme {
       textTheme: GoogleFonts.interTextTheme(baseTextTheme),
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
-        secondary: AppColors.teal,
+        secondary: AppColors.primaryLight,
         surface: AppColors.lightSurface,
         onPrimary: Colors.white,
         onSurface: AppColors.lightTextPrimary,

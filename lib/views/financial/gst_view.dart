@@ -52,7 +52,7 @@ class GstView extends StatelessWidget {
                     fontSize: 36,
                     fontWeight: FontWeight.w200,
                     letterSpacing: -0.5,
-                    color: AppColors.cyan,
+                    color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -76,7 +76,7 @@ class GstView extends StatelessWidget {
                         Text('Total GST (${fin.gstRate.toStringAsFixed(0)}%)', style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.calculatedGstTax),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.cyan)),
+                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: isDark ? AppColors.primaryLight : AppColors.primary)),
                       ],
                     ),
                   ],
@@ -169,11 +169,11 @@ class GstView extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                            ? (isDark ? AppColors.primaryLight.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
                             : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: isSelected ? AppColors.cyan : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                          color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
                           width: isSelected ? 1.0 : 0.6,
                         ),
                       ),
@@ -182,7 +182,7 @@ class GstView extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontSize: 13,
                           fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                          color: isSelected ? AppColors.cyan : (isDark ? Colors.white70 : Colors.black87),
+                          color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? Colors.white70 : Colors.black87),
                         ),
                       ),
                     ),
@@ -237,11 +237,11 @@ class GstView extends StatelessWidget {
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: isSelected
-              ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+              ? (isDark ? AppColors.primaryLight.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
               : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
           borderRadius: BorderRadius.circular(16),
           border: Border.all(
-            color: isSelected ? AppColors.cyan : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+            color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
             width: isSelected ? 1.0 : 0.6,
           ),
         ),
@@ -250,7 +250,7 @@ class GstView extends StatelessWidget {
           style: GoogleFonts.inter(
             fontSize: 13,
             fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-            color: isSelected ? AppColors.cyan : (isDark ? Colors.white70 : Colors.black87),
+            color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? Colors.white70 : Colors.black87),
           ),
         ),
       ),

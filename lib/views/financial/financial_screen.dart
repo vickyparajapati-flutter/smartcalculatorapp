@@ -24,10 +24,10 @@ class FinancialScreen extends StatelessWidget {
           bottom: TabBar(
             isScrollable: true,
             tabAlignment: TabAlignment.start,
-            indicatorColor: AppColors.cyan,
+            indicatorColor: AppColors.primaryLight,
             indicatorWeight: 2,
             dividerColor: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-            labelColor: isDark ? AppColors.cyan : AppColors.primary,
+            labelColor: isDark ? AppColors.primaryLight : AppColors.primary,
             unselectedLabelColor: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
             labelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500),
             unselectedLabelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400),

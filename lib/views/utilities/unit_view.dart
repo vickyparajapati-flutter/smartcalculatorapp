@@ -44,7 +44,7 @@ class UnitView extends StatelessWidget {
                     fontSize: 44,
                     fontWeight: FontWeight.w200,
                     letterSpacing: -0.5,
-                    color: AppColors.cyan,
+                    color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: 2),
@@ -80,12 +80,12 @@ class UnitView extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                            ? (isDark ? AppColors.primaryLight.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
                             : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
                         borderRadius: BorderRadius.circular(20),
                         border: Border.all(
                           color: isSelected
-                              ? AppColors.cyan
+                              ? (isDark ? AppColors.primaryLight : AppColors.primary)
                               : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
                           width: isSelected ? 1.0 : 0.6,
                         ),
@@ -96,7 +96,7 @@ class UnitView extends StatelessWidget {
                           fontSize: 13,
                           fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                           color: isSelected
-                              ? AppColors.cyan
+                              ? (isDark ? AppColors.primaryLight : AppColors.primary)
                               : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
                         ),
                       ),

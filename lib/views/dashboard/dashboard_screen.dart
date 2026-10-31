@@ -129,12 +129,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
             decoration: BoxDecoration(
               color: isSelected
-                  ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                  ? (isDark ? AppColors.primary.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
                   : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
               borderRadius: BorderRadius.circular(20),
               border: Border.all(
                 color: isSelected
-                    ? AppColors.cyan
+                    ? AppColors.primaryLight
                     : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
                 width: isSelected ? 1.0 : 0.6,
               ),
@@ -145,7 +145,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 fontSize: 13,
                 fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                 color: isSelected
-                    ? AppColors.cyan
+                    ? AppColors.primaryLight
                     : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
               ),
             ),
@@ -197,13 +197,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
                       decoration: BoxDecoration(
-                        color: AppColors.cyan.withValues(alpha: 0.15),
+                        color: (isDark ? AppColors.primaryLight : AppColors.primary).withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
                         'POPULAR',
                         style: GoogleFonts.inter(
-                          color: AppColors.cyan,
+                          color: isDark ? AppColors.primaryLight : AppColors.primary,
                           fontSize: 9,
                           fontWeight: FontWeight.w600,
                           letterSpacing: 0.5,

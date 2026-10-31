@@ -46,7 +46,7 @@ class CalculatorScreen extends StatelessWidget {
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
-                            color: isDark ? const Color(0xFF162029) : const Color(0xFFEDF2F7),
+                            color: isDark ? AppColors.darkCard : const Color(0xFFEDF2F7),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
@@ -56,7 +56,7 @@ class CalculatorScreen extends StatelessWidget {
                           child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.grid_view_rounded, size: 14, color: isDark ? AppColors.cyan : AppColors.primary),
+                              Icon(Icons.grid_view_rounded, size: 14, color: isDark ? AppColors.primaryLight : AppColors.primary),
                               const SizedBox(width: 6),
                               Text(
                                 'All Tools (18+)',
@@ -80,12 +80,12 @@ class CalculatorScreen extends StatelessWidget {
                           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
                           decoration: BoxDecoration(
                             color: calc.isScientificExpanded
-                                ? (isDark ? AppColors.cyan.withValues(alpha: 0.15) : AppColors.primary.withValues(alpha: 0.15))
-                                : (isDark ? const Color(0xFF162029) : const Color(0xFFEDF2F7)),
+                                ? (isDark ? AppColors.primary.withValues(alpha: 0.15) : AppColors.primary.withValues(alpha: 0.15))
+                                : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
                               color: calc.isScientificExpanded
-                                  ? AppColors.cyan
+                                  ? AppColors.primaryLight
                                   : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
                               width: 0.6,
                             ),
@@ -96,7 +96,7 @@ class CalculatorScreen extends StatelessWidget {
                               fontSize: 12,
                               fontWeight: FontWeight.w500,
                               color: calc.isScientificExpanded
-                                  ? AppColors.cyan
+                                  ? AppColors.primaryLight
                                   : (isDark ? Colors.white60 : Colors.black54),
                             ),
                           ),
@@ -135,7 +135,7 @@ class CalculatorScreen extends StatelessWidget {
                               child: Container(
                                 padding: const EdgeInsets.all(3),
                                 decoration: const BoxDecoration(
-                                  color: AppColors.cyan,
+                                  color: AppColors.primary,
                                   shape: BoxShape.circle,
                                 ),
                                 constraints: const BoxConstraints(minWidth: 6, minHeight: 6),
@@ -186,7 +186,7 @@ class CalculatorScreen extends StatelessWidget {
                             fontSize: 26,
                             fontWeight: FontWeight.w300,
                             letterSpacing: 0.2,
-                            color: AppColors.cyan,
+                            color: AppColors.primaryLight,
                           ),
                         )
                       else
@@ -259,7 +259,7 @@ class CalculatorScreen extends StatelessWidget {
                         CalcButton(
                           text: ')',
                           type: CalcButtonType.scientific,
-                          onTap: () => calc.append('('),
+                          onTap: () => calc.append(')'),
                         ),
                       ],
                     ),

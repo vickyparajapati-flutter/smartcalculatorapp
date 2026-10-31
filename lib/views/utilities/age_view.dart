@@ -25,10 +25,10 @@ class AgeView extends StatelessWidget {
               leading: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.cyan.withValues(alpha: 0.15),
+                  color: (isDark ? AppColors.primaryLight : AppColors.primary).withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(Icons.cake_outlined, color: AppColors.cyan, size: 20),
+                child: Icon(Icons.cake_outlined, color: isDark ? AppColors.primaryLight : AppColors.primary, size: 20),
               ),
               title: Text('Date of Birth', style: GoogleFonts.inter(fontSize: 12, color: Colors.grey)),
               subtitle: Text(
@@ -47,7 +47,7 @@ class AgeView extends StatelessWidget {
                     util.updateBirthDate(picked);
                   }
                 },
-                child: Text('Change', style: GoogleFonts.inter(color: AppColors.cyan, fontWeight: FontWeight.w500)),
+                child: Text('Change', style: GoogleFonts.inter(color: isDark ? AppColors.primaryLight : AppColors.primary, fontWeight: FontWeight.w500)),
               ),
             ),
           ),
@@ -80,11 +80,11 @@ class AgeView extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    _buildAgeUnit(age.years.toString(), 'Years'),
+                    _buildAgeUnit(age.years.toString(), 'Years', isDark: isDark),
                     Container(height: 30, width: 0.6, color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
-                    _buildAgeUnit(age.months.toString(), 'Months'),
+                    _buildAgeUnit(age.months.toString(), 'Months', isDark: isDark),
                     Container(height: 30, width: 0.6, color: isDark ? AppColors.darkBorder : AppColors.lightBorder),
-                    _buildAgeUnit(age.days.toString(), 'Days'),
+                    _buildAgeUnit(age.days.toString(), 'Days', isDark: isDark),
                   ],
                 ),
               ],
@@ -180,7 +180,7 @@ class AgeView extends StatelessWidget {
     );
   }
 
-  Widget _buildAgeUnit(String value, String unit) {
+  Widget _buildAgeUnit(String value, String unit, {required bool isDark}) {
     return Column(
       children: [
         Text(
@@ -188,7 +188,7 @@ class AgeView extends StatelessWidget {
           style: GoogleFonts.inter(
             fontSize: 34,
             fontWeight: FontWeight.w200,
-            color: AppColors.cyan,
+            color: isDark ? AppColors.primaryLight : AppColors.primary,
           ),
         ),
         Text(

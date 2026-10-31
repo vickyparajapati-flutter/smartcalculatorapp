@@ -52,7 +52,7 @@ class DiscountView extends StatelessWidget {
                     fontSize: 38,
                     fontWeight: FontWeight.w200,
                     letterSpacing: -0.5,
-                    color: AppColors.cyan,
+                    color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
                 ),
                 const SizedBox(height: 14),
@@ -143,11 +143,11 @@ class DiscountView extends StatelessWidget {
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
                         color: isSelected
-                            ? (isDark ? AppColors.cyan.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
+                            ? (isDark ? AppColors.primaryLight.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15))
                             : (isDark ? AppColors.darkCard : const Color(0xFFEDF2F7)),
                         borderRadius: BorderRadius.circular(16),
                         border: Border.all(
-                          color: isSelected ? AppColors.cyan : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
+                          color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? AppColors.darkBorder : AppColors.lightBorder),
                           width: isSelected ? 1.0 : 0.6,
                         ),
                       ),
@@ -156,7 +156,7 @@ class DiscountView extends StatelessWidget {
                         style: GoogleFonts.inter(
                           fontSize: 12,
                           fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                          color: isSelected ? AppColors.cyan : (isDark ? Colors.white70 : Colors.black87),
+                          color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? Colors.white70 : Colors.black87),
                         ),
                       ),
                     ),
@@ -173,7 +173,7 @@ class DiscountView extends StatelessWidget {
             min: 0.0,
             max: 99.0,
             divisions: 99,
-            activeColor: AppColors.cyan,
+            activeColor: isDark ? AppColors.primaryLight : AppColors.primary,
             onChanged: (val) => fin.updateDiscountPercentage(val),
           ),
           const SizedBox(height: 12),

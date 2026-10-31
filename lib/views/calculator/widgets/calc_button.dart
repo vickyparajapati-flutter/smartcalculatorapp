@@ -36,13 +36,13 @@ class CalcButton extends StatelessWidget {
         bgColor = isDark ? AppColors.darkNumKey : AppColors.lightNumKey;
         textColor = isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary;
         fontSize = 28;
-        fontWeight = FontWeight.w300; // Thin & sleek
+        fontWeight = FontWeight.w300;
         break;
       case CalcButtonType.operator:
         bgColor = isDark ? AppColors.darkOpKey : AppColors.lightOpKey;
-        textColor = isDark ? AppColors.cyan : AppColors.primary;
+        textColor = isDark ? AppColors.primaryLight : AppColors.primary;
         fontSize = 28;
-        fontWeight = FontWeight.w300; // Thin mathematical glyphs
+        fontWeight = FontWeight.w300; // Delicate mathematical glyphs
         break;
       case CalcButtonType.action:
         bgColor = isDark ? AppColors.darkActionKey : AppColors.lightActionKey;
@@ -51,8 +51,8 @@ class CalcButton extends StatelessWidget {
         fontWeight = FontWeight.w400;
         break;
       case CalcButtonType.scientific:
-        bgColor = isDark ? const Color(0xFF131B22) : const Color(0xFFEDF2F7);
-        textColor = isDark ? AppColors.cyan.withValues(alpha: 0.8) : AppColors.primaryDark;
+        bgColor = isDark ? const Color(0xFF111925) : const Color(0xFFEDF2F7);
+        textColor = isDark ? AppColors.primaryLight.withValues(alpha: 0.85) : AppColors.primaryDark;
         fontSize = 14;
         fontWeight = FontWeight.w400;
         break;
@@ -81,8 +81,17 @@ class CalcButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(26),
                 border: Border.all(
                   color: isDark ? AppColors.darkBorder : AppColors.lightBorder,
-                  width: 0.6, // Hairline thin border
+                  width: 0.6,
                 ),
+                boxShadow: type == CalcButtonType.equals
+                    ? [
+                        BoxShadow(
+                          color: AppColors.primary.withValues(alpha: 0.35),
+                          blurRadius: 14,
+                          offset: const Offset(0, 4),
+                        ),
+                      ]
+                    : null,
               ),
               child: Center(
                 child: icon ??
