@@ -53,6 +53,32 @@ class AppTheme {
           borderSide: const BorderSide(color: AppColors.primaryLight, width: 1.2),
         ),
       ),
+      navigationBarTheme: NavigationBarThemeData(
+        backgroundColor: AppColors.darkBackground,
+        height: 65,
+        elevation: 0,
+        indicatorColor: AppColors.primary,
+        iconTheme: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return const IconThemeData(color: Colors.white, size: 23);
+          }
+          return const IconThemeData(color: Color(0xFF94A3B8), size: 22);
+        }),
+        labelTextStyle: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return GoogleFonts.outfit(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: AppColors.primaryLight,
+            );
+          }
+          return GoogleFonts.outfit(
+            fontSize: 11.5,
+            fontWeight: FontWeight.w400,
+            color: const Color(0xFF64748B),
+          );
+        }),
+      ),
     );
   }
 

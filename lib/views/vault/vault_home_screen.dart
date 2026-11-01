@@ -68,25 +68,27 @@ class _VaultHomeScreenState extends State<VaultHomeScreen> {
             HapticService.selectionClick();
             setState(() => _currentIndex = index);
           },
+          backgroundColor: AppColors.darkBackground,
+          indicatorColor: AppColors.primary,
           destinations: const [
             NavigationDestination(
-              icon: Icon(Icons.photo_library_outlined),
-              selectedIcon: Icon(Icons.photo_library_rounded, color: AppColors.primary),
+              icon: Icon(Icons.photo_library_outlined, color: Color(0xFF94A3B8)),
+              selectedIcon: Icon(Icons.photo_library_rounded, color: Colors.white),
               label: 'Photos',
             ),
             NavigationDestination(
-              icon: Icon(Icons.note_alt_outlined),
-              selectedIcon: Icon(Icons.note_alt_rounded, color: AppColors.primary),
+              icon: Icon(Icons.note_alt_outlined, color: Color(0xFF94A3B8)),
+              selectedIcon: Icon(Icons.note_alt_rounded, color: Colors.white),
               label: 'Notes',
             ),
             NavigationDestination(
-              icon: Icon(Icons.contact_phone_outlined),
-              selectedIcon: Icon(Icons.contact_phone_rounded, color: AppColors.primary),
+              icon: Icon(Icons.contact_phone_outlined, color: Color(0xFF94A3B8)),
+              selectedIcon: Icon(Icons.contact_phone_rounded, color: Colors.white),
               label: 'Contacts',
             ),
             NavigationDestination(
-              icon: Icon(Icons.shield_outlined),
-              selectedIcon: Icon(Icons.shield_rounded, color: AppColors.primary),
+              icon: Icon(Icons.shield_outlined, color: Color(0xFF94A3B8)),
+              selectedIcon: Icon(Icons.shield_rounded, color: Colors.white),
               label: 'Security',
             ),
           ],

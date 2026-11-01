@@ -25,8 +25,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-
     return Scaffold(
       body: IndexedStack(
         index: _currentIndex,
@@ -40,27 +38,27 @@ class _HomeScreenState extends State<HomeScreen> {
             _currentIndex = index;
           });
         },
-        backgroundColor: isDark ? AppColors.darkBackground : AppColors.lightBackground,
-        indicatorColor: isDark ? AppColors.primary.withValues(alpha: 0.18) : AppColors.primary.withValues(alpha: 0.15),
-        destinations: [
+        backgroundColor: AppColors.darkBackground,
+        indicatorColor: AppColors.primary,
+        destinations: const [
           NavigationDestination(
-            icon: const Icon(Icons.calculate_outlined),
-            selectedIcon: Icon(Icons.calculate_rounded, color: isDark ? AppColors.primaryLight : AppColors.primary),
+            icon: Icon(Icons.calculate_outlined, color: Color(0xFF94A3B8)),
+            selectedIcon: Icon(Icons.calculate_rounded, color: Colors.white),
             label: 'Calculator',
           ),
           NavigationDestination(
-            icon: const Icon(Icons.grid_view_outlined),
-            selectedIcon: Icon(Icons.grid_view_rounded, color: isDark ? AppColors.primaryLight : AppColors.primary),
+            icon: Icon(Icons.grid_view_outlined, color: Color(0xFF94A3B8)),
+            selectedIcon: Icon(Icons.grid_view_rounded, color: Colors.white),
             label: 'All Tools (18+)',
           ),
           NavigationDestination(
-            icon: const Icon(Icons.account_balance_outlined),
-            selectedIcon: Icon(Icons.account_balance_rounded, color: isDark ? AppColors.primaryLight : AppColors.primary),
+            icon: Icon(Icons.account_balance_outlined, color: Color(0xFF94A3B8)),
+            selectedIcon: Icon(Icons.account_balance_rounded, color: Colors.white),
             label: 'Finance',
           ),
           NavigationDestination(
-            icon: const Icon(Icons.widgets_outlined),
-            selectedIcon: Icon(Icons.widgets_rounded, color: isDark ? AppColors.primaryLight : AppColors.primary),
+            icon: Icon(Icons.widgets_outlined, color: Color(0xFF94A3B8)),
+            selectedIcon: Icon(Icons.widgets_rounded, color: Colors.white),
             label: 'Utilities',
           ),
         ],
