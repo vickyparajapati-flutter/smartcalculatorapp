@@ -161,7 +161,29 @@ class _VaultUnlockDialogState extends State<_VaultUnlockDialog> {
       ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+            margin: const EdgeInsets.only(bottom: 14),
+            decoration: BoxDecoration(
+              color: AppColors.primary.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(12),
+              border: Border.all(color: AppColors.primary.withValues(alpha: 0.25), width: 0.6),
+            ),
+            child: const Row(
+              children: [
+                Icon(Icons.lightbulb_outline_rounded, size: 16, color: AppColors.primaryLight),
+                SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'Shortcut: Type PIN & press = directly on the calculator keypad to unlock anytime!',
+                    style: TextStyle(fontSize: 12, color: Colors.white70),
+                  ),
+                ),
+              ],
+            ),
+          ),
           TextField(
             controller: _pinController,
             keyboardType: TextInputType.number,

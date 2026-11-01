@@ -11,12 +11,20 @@ import '../vault/vault_setup_dialog.dart';
 import 'widgets/calc_button.dart';
 import 'widgets/history_sheet.dart';
 
-class CalculatorScreen extends StatelessWidget {
+class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
+
+  @override
+  State<CalculatorScreen> createState() => _CalculatorScreenState();
+}
+
+class _CalculatorScreenState extends State<CalculatorScreen> {
+  bool _isVaultHintDismissed = false;
 
   @override
   Widget build(BuildContext context) {
     final calc = context.watch<CalculatorProvider>();
+    final vault = context.watch<VaultProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -103,27 +111,47 @@ class CalculatorScreen extends StatelessWidget {
                     ],
                   ),
 
-                  // History button with badge
-                  Stack(
+                  Row(
                     children: [
+                      // Secret Vault Shield Icon
                       IconButton(
-                        tooltip: 'Smart Tape / History',
-                        icon: const Icon(Icons.history_rounded, size: 22),
-                        onPressed: () => HistorySheet.show(context),
-                      ),
-                      if (calc.history.isNotEmpty)
-                        Positioned(
-                          right: 6,
-                          top: 6,
-                          child: Container(
-                            padding: const EdgeInsets.all(3),
-                            decoration: const BoxDecoration(
-                              color: AppColors.primary,
-                              shape: BoxShape.circle,
-                            ),
-                            constraints: const BoxConstraints(minWidth: 6, minHeight: 6),
-                          ),
+                        tooltip: 'Secret Vault Lock',
+                        icon: Icon(
+                          vault.isConfigured ? Icons.lock_outline_rounded : Icons.shield_outlined,
+                          size: 21,
+                          color: vault.isConfigured
+                              ? AppColors.primaryLight
+                              : (isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary),
                         ),
+                        onPressed: () {
+                          HapticService.lightClick();
+                          VaultSetupDialog.show(context);
+                        },
+                      ),
+
+                      // History button with badge
+                      Stack(
+                        children: [
+                          IconButton(
+                            tooltip: 'Smart Tape / History',
+                            icon: const Icon(Icons.history_rounded, size: 22),
+                            onPressed: () => HistorySheet.show(context),
+                          ),
+                          if (calc.history.isNotEmpty)
+                            Positioned(
+                              right: 6,
+                              top: 6,
+                              child: Container(
+                                padding: const EdgeInsets.all(3),
+                                decoration: const BoxDecoration(
+                                  color: AppColors.primary,
+                                  shape: BoxShape.circle,
+                                ),
+                                constraints: const BoxConstraints(minWidth: 6, minHeight: 6),
+                              ),
+                            ),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -177,6 +205,52 @@ class CalculatorScreen extends StatelessWidget {
                 ),
               ),
             ),
+
+            // First-time Vault Tip Banner
+            if (!vault.isConfigured && !_isVaultHintDismissed)
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 4.0),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(
+                      color: AppColors.primaryLight.withValues(alpha: 0.3),
+                      width: 0.6,
+                    ),
+                  ),
+                  child: Row(
+                    children: [
+                      const Icon(Icons.shield_rounded, size: 16, color: AppColors.primaryLight),
+                      const SizedBox(width: 8),
+                      Expanded(
+                        child: InkWell(
+                          onTap: () {
+                            HapticService.lightClick();
+                            VaultSetupDialog.show(context);
+                          },
+                          child: Text(
+                            'Secret Vault: Type 4-digit PIN & tap = to lock/hide files (Tap to set)',
+                            style: GoogleFonts.outfit(
+                              fontSize: 11.5,
+                              fontWeight: FontWeight.w500,
+                              color: AppColors.primaryLight,
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () => setState(() => _isVaultHintDismissed = true),
+                        child: const Padding(
+                          padding: EdgeInsets.all(4.0),
+                          child: Icon(Icons.close_rounded, size: 14, color: Colors.white54),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
 
             // Keypad Area (Seamless edge-to-edge design)
             Padding(

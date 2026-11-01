@@ -173,7 +173,7 @@ class CalculatorItem {
     CalculatorItem(
       id: 'vault_tool',
       title: 'Secret Calculator Vault',
-      subtitle: 'Hide private photos, notes & contacts behind a PIN',
+      subtitle: 'Type PIN & press = to unlock hidden photos & notes',
       icon: Icons.lock_outline_rounded,
       category: CalculatorCategory.converter,
       primaryColor: Color(0xFFE11D48),
