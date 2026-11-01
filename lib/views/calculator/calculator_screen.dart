@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import '../../core/constants/app_colors.dart';
-import '../../core/theme/theme_provider.dart';
 import '../../core/utils/haptic_service.dart';
 import '../../providers/calculator_provider.dart';
 import '../../providers/vault_provider.dart';
@@ -18,7 +17,6 @@ class CalculatorScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final calc = context.watch<CalculatorProvider>();
-    final themeProvider = context.watch<ThemeProvider>();
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
     return Scaffold(
@@ -105,44 +103,27 @@ class CalculatorScreen extends StatelessWidget {
                     ],
                   ),
 
-                  Row(
+                  // History button with badge
+                  Stack(
                     children: [
-                      // Theme Switcher
                       IconButton(
-                        tooltip: 'Toggle Theme',
-                        icon: Icon(
-                          themeProvider.isDarkMode
-                              ? Icons.light_mode_outlined
-                              : Icons.dark_mode_outlined,
-                          size: 20,
-                          color: isDark ? Colors.amber.shade300 : AppColors.primaryDark,
-                        ),
-                        onPressed: () => themeProvider.toggleTheme(),
+                        tooltip: 'Smart Tape / History',
+                        icon: const Icon(Icons.history_rounded, size: 22),
+                        onPressed: () => HistorySheet.show(context),
                       ),
-
-                      // History button with badge
-                      Stack(
-                        children: [
-                          IconButton(
-                            tooltip: 'Smart Tape / History',
-                            icon: const Icon(Icons.history_rounded, size: 20),
-                            onPressed: () => HistorySheet.show(context),
-                          ),
-                          if (calc.history.isNotEmpty)
-                            Positioned(
-                              right: 6,
-                              top: 6,
-                              child: Container(
-                                padding: const EdgeInsets.all(3),
-                                decoration: const BoxDecoration(
-                                  color: AppColors.primary,
-                                  shape: BoxShape.circle,
-                                ),
-                                constraints: const BoxConstraints(minWidth: 6, minHeight: 6),
-                              ),
+                      if (calc.history.isNotEmpty)
+                        Positioned(
+                          right: 6,
+                          top: 6,
+                          child: Container(
+                            padding: const EdgeInsets.all(3),
+                            decoration: const BoxDecoration(
+                              color: AppColors.primary,
+                              shape: BoxShape.circle,
                             ),
-                        ],
-                      ),
+                            constraints: const BoxConstraints(minWidth: 6, minHeight: 6),
+                          ),
+                        ),
                     ],
                   ),
                 ],
