@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../core/ads/banner_ad_widget.dart';
 import '../../core/constants/app_colors.dart';
 import 'gst_view.dart';
 import 'emi_view.dart';
@@ -39,12 +40,19 @@ class FinancialScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: const Column(
           children: [
-            GstView(),
-            EmiView(),
-            SipView(),
-            DiscountView(),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  GstView(),
+                  EmiView(),
+                  SipView(),
+                  DiscountView(),
+                ],
+              ),
+            ),
+            BannerAdWidget(),
           ],
         ),
       ),

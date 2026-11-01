@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../core/ads/ad_helper.dart';
+import '../../core/ads/banner_ad_widget.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/haptic_service.dart';
 import '../../models/calculator_item.dart';
@@ -107,6 +109,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     },
                   ),
           ),
+          const BannerAdWidget(),
         ],
       ),
     );
@@ -302,6 +305,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }
 
     if (page != null) {
+      AdHelper.showInterstitialAd();
       Navigator.push(context, MaterialPageRoute(builder: (_) => page!));
     }
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import '../../core/ads/banner_ad_widget.dart';
 import '../../core/constants/app_colors.dart';
 import 'bmi_view.dart';
 import 'age_view.dart';
@@ -35,11 +36,18 @@ class UtilitiesScreen extends StatelessWidget {
             ],
           ),
         ),
-        body: const TabBarView(
+        body: const Column(
           children: [
-            BmiView(),
-            AgeView(),
-            UnitView(),
+            Expanded(
+              child: TabBarView(
+                children: [
+                  BmiView(),
+                  AgeView(),
+                  UnitView(),
+                ],
+              ),
+            ),
+            BannerAdWidget(),
           ],
         ),
       ),
