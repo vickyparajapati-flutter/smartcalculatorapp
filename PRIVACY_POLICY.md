@@ -28,4 +28,5 @@ We do not knowingly collect personal information from children under 13.
 
 ### 6. Contact Us
 For any inquiries regarding this policy, contact:  
-**Email:** support@smartcalculator.app
+**Email:** hello@aianthro.com
+
