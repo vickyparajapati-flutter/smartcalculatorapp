@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/ads/ad_helper.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/haptic_service.dart';
 import '../calculator/calculator_screen.dart';
@@ -15,6 +16,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _currentIndex = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      AdHelper.showAppOpenAdIfAvailable();
+    });
+  }
 
   final List<Widget> _screens = [
     const CalculatorScreen(),

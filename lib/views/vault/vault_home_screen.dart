@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../core/ads/ad_helper.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/haptic_service.dart';
 import '../../providers/vault_provider.dart';
@@ -53,6 +54,7 @@ class _VaultHomeScreenState extends State<VaultHomeScreen> {
               onPressed: () {
                 HapticService.mediumClick();
                 vault.lock();
+                AdHelper.showInterstitialAd();
                 Navigator.pop(context);
               },
             ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../core/ads/ad_helper.dart';
+import '../../core/ads/banner_ad_widget.dart';
 import '../../core/constants/app_colors.dart';
 import '../../core/utils/haptic_service.dart';
 
@@ -202,6 +204,8 @@ class _GstInvoiceScreenState extends State<GstInvoiceScreen> {
                 onPressed: _shareInvoice,
               ),
             ),
+            const SizedBox(height: 16),
+            const BannerAdWidget(),
           ],
         ),
       ),
@@ -210,6 +214,7 @@ class _GstInvoiceScreenState extends State<GstInvoiceScreen> {
 
   void _shareInvoice() {
     HapticService.mediumClick();
+    AdHelper.showInterstitialAd();
     final buffer = StringBuffer();
     buffer.writeln('🧾 *TAX INVOICE / BILL*');
     buffer.writeln('--------------------------------');

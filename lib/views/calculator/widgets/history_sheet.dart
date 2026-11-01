@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../../core/ads/ad_helper.dart';
 import '../../../core/constants/app_colors.dart';
 import '../../../providers/calculator_provider.dart';
 import '../../../models/calculation_history.dart';
@@ -84,7 +85,10 @@ class HistorySheet extends StatelessWidget {
                       IconButton(
                         tooltip: 'Share All as Statement',
                         icon: const Icon(Icons.share_rounded, size: 20),
-                        onPressed: () => calcProvider.shareAllHistory(),
+                        onPressed: () {
+                          AdHelper.showInterstitialAd();
+                          calcProvider.shareAllHistory();
+                        },
                       ),
                       IconButton(
                         tooltip: 'Clear History',
