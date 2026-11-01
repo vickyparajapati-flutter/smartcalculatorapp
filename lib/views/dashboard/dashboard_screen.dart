@@ -141,9 +141,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ),
             child: Text(
               label,
-              style: GoogleFonts.inter(
-                fontSize: 13,
-                fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+              style: GoogleFonts.outfit(
+                fontSize: 13.5,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                 color: isSelected
                     ? AppColors.primaryLight
                     : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
@@ -202,10 +202,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
                       ),
                       child: Text(
                         'POPULAR',
-                        style: GoogleFonts.inter(
+                        style: GoogleFonts.outfit(
                           color: isDark ? AppColors.primaryLight : AppColors.primary,
-                          fontSize: 9,
-                          fontWeight: FontWeight.w600,
+                          fontSize: 9.5,
+                          fontWeight: FontWeight.w700,
                           letterSpacing: 0.5,
                         ),
                       ),
@@ -219,16 +219,16 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     item.title,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 13.5),
+                    style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14),
                   ),
                   const SizedBox(height: 2),
                   Text(
                     item.subtitle,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: GoogleFonts.inter(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w300,
+                    style: GoogleFonts.outfit(
+                      fontSize: 11.5,
+                      fontWeight: FontWeight.w400,
                       color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                       height: 1.25,
                     ),

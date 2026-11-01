@@ -35,14 +35,14 @@ class UnitView extends StatelessWidget {
               children: [
                 Text(
                   '${util.inputValue} ${util.fromUnit} =',
-                  style: GoogleFonts.inter(fontSize: 12, color: Colors.grey),
+                  style: GoogleFonts.outfit(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w500),
                 ),
                 const SizedBox(height: 6),
                 SelectableText(
                   _formatOutput(util.convertedValue),
-                  style: GoogleFonts.inter(
-                    fontSize: 44,
-                    fontWeight: FontWeight.w200,
+                  style: GoogleFonts.outfit(
+                    fontSize: 46,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                     color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
@@ -50,9 +50,9 @@ class UnitView extends StatelessWidget {
                 const SizedBox(height: 2),
                 Text(
                   util.toUnit,
-                  style: GoogleFonts.inter(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
+                  style: GoogleFonts.outfit(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
                     color: isDark ? Colors.white70 : Colors.black87,
                   ),
                 ),
@@ -92,9 +92,9 @@ class UnitView extends StatelessWidget {
                       ),
                       child: Text(
                         cat,
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                        style: GoogleFonts.outfit(
+                          fontSize: 13.5,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                           color: isSelected
                               ? (isDark ? AppColors.primaryLight : AppColors.primary)
                               : (isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary),
@@ -115,12 +115,12 @@ class UnitView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Enter Value', style: GoogleFonts.inter(color: Colors.grey, fontSize: 12)),
+                  Text('Enter Value', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 8),
                   TextFormField(
                     initialValue: util.inputValue.toString(),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w300),
+                    style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.w500),
                     decoration: InputDecoration(
                       contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(14)),
@@ -151,7 +151,7 @@ class UnitView extends StatelessWidget {
                         value: util.availableUnits.contains(util.fromUnit) ? util.fromUnit : util.availableUnits.first,
                         isExpanded: true,
                         items: util.availableUnits.map((u) {
-                          return DropdownMenuItem(value: u, child: Text(u, style: GoogleFonts.inter(fontSize: 13)));
+                          return DropdownMenuItem(value: u, child: Text(u, style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)));
                         }).toList(),
                         onChanged: (val) {
                           if (val != null) util.setFromUnit(val);
@@ -181,7 +181,7 @@ class UnitView extends StatelessWidget {
                         value: util.availableUnits.contains(util.toUnit) ? util.toUnit : util.availableUnits.last,
                         isExpanded: true,
                         items: util.availableUnits.map((u) {
-                          return DropdownMenuItem(value: u, child: Text(u, style: GoogleFonts.inter(fontSize: 13)));
+                          return DropdownMenuItem(value: u, child: Text(u, style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)));
                         }).toList(),
                         onChanged: (val) {
                           if (val != null) util.setToUnit(val);

@@ -30,10 +30,10 @@ class AgeView extends StatelessWidget {
                 ),
                 child: Icon(Icons.cake_outlined, color: isDark ? AppColors.primaryLight : AppColors.primary, size: 20),
               ),
-              title: Text('Date of Birth', style: GoogleFonts.inter(fontSize: 12, color: Colors.grey)),
+              title: Text('Date of Birth', style: GoogleFonts.outfit(fontSize: 13, color: Colors.grey, fontWeight: FontWeight.w500)),
               subtitle: Text(
                 dateFormatter.format(util.birthDate),
-                style: GoogleFonts.inter(fontSize: 16, fontWeight: FontWeight.w500),
+                style: GoogleFonts.outfit(fontSize: 16.5, fontWeight: FontWeight.w600),
               ),
               trailing: TextButton(
                 onPressed: () async {
@@ -47,7 +47,7 @@ class AgeView extends StatelessWidget {
                     util.updateBirthDate(picked);
                   }
                 },
-                child: Text('Change', style: GoogleFonts.inter(color: isDark ? AppColors.primaryLight : AppColors.primary, fontWeight: FontWeight.w500)),
+                child: Text('Change', style: GoogleFonts.outfit(color: isDark ? AppColors.primaryLight : AppColors.primary, fontWeight: FontWeight.w600)),
               ),
             ),
           ),
@@ -69,9 +69,9 @@ class AgeView extends StatelessWidget {
               children: [
                 Text(
                   'CURRENT AGE',
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                   ),
@@ -113,15 +113,16 @@ class AgeView extends StatelessWidget {
                     children: [
                       Text(
                         'Next Birthday',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 14),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14.5),
                       ),
                       const SizedBox(height: 2),
                       Text(
                         age.nextBirthdayDays == 0
                             ? 'Today is your Birthday! 🎉 Happy Birthday!'
                             : 'In ${age.nextBirthdayDays} days on a ${age.nextBirthdayDayOfWeek}',
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
+                        style: GoogleFonts.outfit(
+                          fontSize: 12.5,
+                          fontWeight: FontWeight.w500,
                           color: isDark ? Colors.white70 : const Color(0xFF92400E),
                         ),
                       ),
@@ -143,11 +144,11 @@ class AgeView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Total Months', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Total Months', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500)),
                         const SizedBox(height: 4),
                         Text(
                           '${age.totalMonths}',
-                          style: GoogleFonts.inter(fontSize: 22, fontWeight: FontWeight.w300),
+                          style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -162,11 +163,11 @@ class AgeView extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Total Days', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Total Days', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12, fontWeight: FontWeight.w500)),
                         const SizedBox(height: 4),
                         Text(
                           '${age.totalDays}',
-                          style: GoogleFonts.inter(fontSize: 22, fontWeight: FontWeight.w300),
+                          style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.w600),
                         ),
                       ],
                     ),
@@ -185,18 +186,18 @@ class AgeView extends StatelessWidget {
       children: [
         Text(
           value,
-          style: GoogleFonts.inter(
-            fontSize: 34,
-            fontWeight: FontWeight.w200,
+          style: GoogleFonts.outfit(
+            fontSize: 36,
+            fontWeight: FontWeight.w600,
             color: isDark ? AppColors.primaryLight : AppColors.primary,
           ),
         ),
         Text(
           unit,
-          style: GoogleFonts.inter(
-            fontSize: 11,
+          style: GoogleFonts.outfit(
+            fontSize: 12,
             color: Colors.grey,
-            fontWeight: FontWeight.w400,
+            fontWeight: FontWeight.w500,
           ),
         ),
       ],

@@ -9,7 +9,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: AppColors.darkBackground,
-      textTheme: GoogleFonts.interTextTheme(baseTextTheme),
+      textTheme: GoogleFonts.outfitTextTheme(baseTextTheme),
       colorScheme: const ColorScheme.dark(
         primary: AppColors.primaryLight,
         secondary: AppColors.primary,
@@ -29,9 +29,9 @@ class AppTheme {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: GoogleFonts.inter(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
+        titleTextStyle: GoogleFonts.outfit(
+          fontSize: 19,
+          fontWeight: FontWeight.w600,
           color: AppColors.darkTextPrimary,
           letterSpacing: 0.3,
         ),
@@ -62,7 +62,7 @@ class AppTheme {
       useMaterial3: true,
       brightness: Brightness.light,
       scaffoldBackgroundColor: AppColors.lightBackground,
-      textTheme: GoogleFonts.interTextTheme(baseTextTheme),
+      textTheme: GoogleFonts.outfitTextTheme(baseTextTheme),
       colorScheme: const ColorScheme.light(
         primary: AppColors.primary,
         secondary: AppColors.primaryLight,
@@ -82,9 +82,9 @@ class AppTheme {
         backgroundColor: Colors.transparent,
         elevation: 0,
         centerTitle: true,
-        titleTextStyle: GoogleFonts.inter(
-          fontSize: 18,
-          fontWeight: FontWeight.w500,
+        titleTextStyle: GoogleFonts.outfit(
+          fontSize: 19,
+          fontWeight: FontWeight.w600,
           color: AppColors.lightTextPrimary,
           letterSpacing: 0.3,
         ),

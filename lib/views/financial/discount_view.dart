@@ -38,9 +38,9 @@ class DiscountView extends StatelessWidget {
               children: [
                 Text(
                   'FINAL DISCOUNTED PRICE',
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                   ),
@@ -48,9 +48,9 @@ class DiscountView extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   currencyFormatter.format(fin.finalDiscountedPrice),
-                  style: GoogleFonts.inter(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w200,
+                  style: GoogleFonts.outfit(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                     color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
@@ -64,19 +64,19 @@ class DiscountView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Original Price', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Original Price', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.discountOriginalPrice),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600)),
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Total Savings', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Total Savings', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.totalDiscountSavings),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.emerald)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.emerald)),
                       ],
                     ),
                   ],
@@ -93,12 +93,12 @@ class DiscountView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Original Price', style: GoogleFonts.inter(color: Colors.grey, fontSize: 12)),
+                  Text('Original Price', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 8),
                   TextFormField(
                     initialValue: fin.discountOriginalPrice.toStringAsFixed(0),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w300),
+                    style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.w500),
                     decoration: const InputDecoration(prefixText: '₹ '),
                     onChanged: (val) {
                       final parsed = double.tryParse(val);
@@ -116,9 +116,9 @@ class DiscountView extends StatelessWidget {
           // Primary Discount Quick Chips
           Text(
             'DISCOUNT PERCENTAGE',
-            style: GoogleFonts.inter(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.outfit(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
               letterSpacing: 1.0,
               color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
             ),
@@ -153,9 +153,9 @@ class DiscountView extends StatelessWidget {
                       ),
                       child: Text(
                         '${rate.toStringAsFixed(0)}%',
-                        style: GoogleFonts.inter(
-                          fontSize: 12,
-                          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                        style: GoogleFonts.outfit(
+                          fontSize: 13,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                           color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? Colors.white70 : Colors.black87),
                         ),
                       ),
@@ -188,10 +188,10 @@ class DiscountView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Extra Coupon Discount', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Extra Coupon Discount', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${fin.discountAdditionalPercentage.toStringAsFixed(0)} %',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.rose),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: AppColors.rose),
                       ),
                     ],
                   ),

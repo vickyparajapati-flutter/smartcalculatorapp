@@ -18,7 +18,7 @@ class UtilitiesScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Daily Utilities',
-            style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 18),
+            style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 19),
           ),
           bottom: TabBar(
             indicatorColor: AppColors.primaryLight,
@@ -26,8 +26,8 @@ class UtilitiesScreen extends StatelessWidget {
             dividerColor: isDark ? AppColors.darkBorder : AppColors.lightBorder,
             labelColor: isDark ? AppColors.primaryLight : AppColors.primary,
             unselectedLabelColor: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-            labelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500),
-            unselectedLabelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400),
+            labelStyle: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w400),
             tabs: const [
               Tab(text: 'BMI Health'),
               Tab(text: 'Age & Birthday'),

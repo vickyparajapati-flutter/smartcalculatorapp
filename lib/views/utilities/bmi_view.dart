@@ -45,9 +45,9 @@ class BmiView extends StatelessWidget {
               children: [
                 Text(
                   'BODY MASS INDEX (BMI)',
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                   ),
@@ -55,26 +55,26 @@ class BmiView extends StatelessWidget {
                 const SizedBox(height: 8),
                 Text(
                   bmiResult.bmi.toStringAsFixed(1),
-                  style: GoogleFonts.inter(
-                    fontSize: 48,
-                    fontWeight: FontWeight.w200,
+                  style: GoogleFonts.outfit(
+                    fontSize: 52,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                     color: categoryColor,
                   ),
                 ),
                 const SizedBox(height: 6),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
                   decoration: BoxDecoration(
                     color: categoryColor.withValues(alpha: 0.15),
                     borderRadius: BorderRadius.circular(14),
                   ),
                   child: Text(
                     bmiResult.category,
-                    style: GoogleFonts.inter(
+                    style: GoogleFonts.outfit(
                       color: categoryColor,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13,
                     ),
                   ),
                 ),
@@ -82,9 +82,9 @@ class BmiView extends StatelessWidget {
                 Text(
                   bmiResult.tip,
                   textAlign: TextAlign.center,
-                  style: GoogleFonts.inter(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w300,
+                  style: GoogleFonts.outfit(
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
                     color: isDark ? Colors.white70 : Colors.black87,
                     height: 1.35,
                   ),
@@ -94,7 +94,7 @@ class BmiView extends StatelessWidget {
                 const SizedBox(height: 12),
                 Text(
                   'Ideal Weight: ${bmiResult.idealMinWeight.toStringAsFixed(1)} kg − ${bmiResult.idealMaxWeight.toStringAsFixed(1)} kg',
-                  style: GoogleFonts.inter(fontSize: 12, fontWeight: FontWeight.w400, color: Colors.grey),
+                  style: GoogleFonts.outfit(fontSize: 13, fontWeight: FontWeight.w500, color: Colors.grey),
                 ),
               ],
             ),
@@ -111,10 +111,10 @@ class BmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Height', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Height', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${util.heightCm.toStringAsFixed(0)} cm (${(util.heightCm / 30.48).toStringAsFixed(1)} ft)',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.cyan),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: isDark ? AppColors.primaryLight : AppColors.primary),
                       ),
                     ],
                   ),
@@ -123,7 +123,7 @@ class BmiView extends StatelessWidget {
                     min: 90.0,
                     max: 240.0,
                     divisions: 150,
-                    activeColor: AppColors.cyan,
+                    activeColor: isDark ? AppColors.primaryLight : AppColors.primary,
                     onChanged: (val) => util.updateHeight(val),
                   ),
                 ],
@@ -142,10 +142,10 @@ class BmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Weight', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Weight', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${util.weightKg.toStringAsFixed(1)} kg (${(util.weightKg * 2.20462).toStringAsFixed(1)} lbs)',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.cyan),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: isDark ? AppColors.primaryLight : AppColors.primary),
                       ),
                     ],
                   ),
@@ -154,7 +154,7 @@ class BmiView extends StatelessWidget {
                     min: 20.0,
                     max: 200.0,
                     divisions: 180,
-                    activeColor: AppColors.cyan,
+                    activeColor: isDark ? AppColors.primaryLight : AppColors.primary,
                     onChanged: (val) => util.updateWeight(val),
                   ),
                 ],

@@ -35,9 +35,9 @@ class EmiView extends StatelessWidget {
               children: [
                 Text(
                   'MONTHLY EMI',
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                   ),
@@ -45,9 +45,9 @@ class EmiView extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   currencyFormatter.format(fin.monthlyEmi),
-                  style: GoogleFonts.inter(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w200,
+                  style: GoogleFonts.outfit(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                     color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
@@ -61,19 +61,19 @@ class EmiView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Principal Amount', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Principal Amount', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.loanPrincipal),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600)),
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Total Interest', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Total Interest', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.totalLoanInterest),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.amber)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.amber)),
                       ],
                     ),
                   ],
@@ -93,10 +93,10 @@ class EmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Loan Amount', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Loan Amount', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         currencyFormatter.format(fin.loanPrincipal),
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: isDark ? AppColors.primaryLight : AppColors.primary),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: isDark ? AppColors.primaryLight : AppColors.primary),
                       ),
                     ],
                   ),
@@ -124,10 +124,10 @@ class EmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Interest Rate (p.a.)', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Interest Rate (p.a.)', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${fin.loanAnnualRate.toStringAsFixed(1)} %',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: isDark ? AppColors.primaryLight : AppColors.primary),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: isDark ? AppColors.primaryLight : AppColors.primary),
                       ),
                     ],
                   ),
@@ -155,10 +155,10 @@ class EmiView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Loan Tenure', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Loan Tenure', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${(fin.loanTenureMonths / 12).toStringAsFixed(1)} Yrs (${fin.loanTenureMonths} Mos)',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: isDark ? AppColors.primaryLight : AppColors.primary),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: isDark ? AppColors.primaryLight : AppColors.primary),
                       ),
                     ],
                   ),
@@ -183,10 +183,10 @@ class EmiView extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text('Total Amount Payable', style: GoogleFonts.inter(color: Colors.grey, fontSize: 13)),
+                  Text('Total Amount Payable', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 13.5, fontWeight: FontWeight.w500)),
                   Text(
                     currencyFormatter.format(fin.totalLoanPayment),
-                    style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.w500),
+                    style: GoogleFonts.outfit(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                 ],
               ),

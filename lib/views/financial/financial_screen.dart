@@ -19,7 +19,7 @@ class FinancialScreen extends StatelessWidget {
         appBar: AppBar(
           title: Text(
             'Finance Hub',
-            style: GoogleFonts.inter(fontWeight: FontWeight.w500, fontSize: 18),
+            style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 19),
           ),
           bottom: TabBar(
             isScrollable: true,
@@ -29,8 +29,8 @@ class FinancialScreen extends StatelessWidget {
             dividerColor: isDark ? AppColors.darkBorder : AppColors.lightBorder,
             labelColor: isDark ? AppColors.primaryLight : AppColors.primary,
             unselectedLabelColor: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
-            labelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500),
-            unselectedLabelStyle: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400),
+            labelStyle: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w600),
+            unselectedLabelStyle: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w400),
             tabs: const [
               Tab(text: 'GST Tax'),
               Tab(text: 'Loan EMI'),

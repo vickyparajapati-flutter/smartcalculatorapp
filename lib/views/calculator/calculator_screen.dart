@@ -60,9 +60,9 @@ class CalculatorScreen extends StatelessWidget {
                               const SizedBox(width: 6),
                               Text(
                                 'All Tools (18+)',
-                                style: GoogleFonts.inter(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
+                                style: GoogleFonts.outfit(
+                                  fontSize: 12.5,
+                                  fontWeight: FontWeight.w500,
                                   letterSpacing: 0.2,
                                 ),
                               ),
@@ -92,9 +92,9 @@ class CalculatorScreen extends StatelessWidget {
                           ),
                           child: Text(
                             'fx',
-                            style: GoogleFonts.inter(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w500,
+                            style: GoogleFonts.outfit(
+                              fontSize: 12.5,
+                              fontWeight: FontWeight.w600,
                               color: calc.isScientificExpanded
                                   ? AppColors.primaryLight
                                   : (isDark ? Colors.white60 : Colors.black54),
@@ -149,7 +149,7 @@ class CalculatorScreen extends StatelessWidget {
               ),
             ),
 
-            // Calculation Display Area (Ultra-Thin Floating Typography)
+            // Calculation Display Area (Modern Geometric Typography)
             Expanded(
               flex: 3,
               child: Container(
@@ -162,29 +162,29 @@ class CalculatorScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      // Giant Ultra-Thin Active Expression
+                      // Modern Crisp Active Expression
                       FittedBox(
                         fit: BoxFit.scaleDown,
                         alignment: Alignment.centerRight,
                         child: SelectableText(
                           calc.expression,
-                          style: GoogleFonts.inter(
-                            fontSize: 60,
-                            fontWeight: FontWeight.w200, // True luxury thin weight
-                            letterSpacing: -1.0,
+                          style: GoogleFonts.outfit(
+                            fontSize: 58,
+                            fontWeight: FontWeight.w400, // Clean, legible geometric numeral
+                            letterSpacing: -0.5,
                             color: isDark ? AppColors.darkTextPrimary : AppColors.lightTextPrimary,
                           ),
                         ),
                       ),
                       const SizedBox(height: 4),
 
-                      // Delicate Live Result Preview
+                      // Clear Live Result Preview
                       if (calc.liveResult.isNotEmpty)
                         Text(
                           '= ${calc.liveResult}',
-                          style: GoogleFonts.inter(
-                            fontSize: 26,
-                            fontWeight: FontWeight.w300,
+                          style: GoogleFonts.outfit(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w500,
                             letterSpacing: 0.2,
                             color: AppColors.primaryLight,
                           ),

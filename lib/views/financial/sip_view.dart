@@ -35,9 +35,9 @@ class SipView extends StatelessWidget {
               children: [
                 Text(
                   'EXPECTED TOTAL WEALTH',
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                   ),
@@ -45,9 +45,9 @@ class SipView extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   currencyFormatter.format(fin.totalSipWealth),
-                  style: GoogleFonts.inter(
-                    fontSize: 38,
-                    fontWeight: FontWeight.w200,
+                  style: GoogleFonts.outfit(
+                    fontSize: 40,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                     color: AppColors.teal,
                   ),
@@ -61,19 +61,19 @@ class SipView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Invested Amount', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Invested Amount', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.totalSipInvested),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600)),
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Est. Wealth Gains', style: GoogleFonts.inter(color: Colors.grey, fontSize: 11)),
+                        Text('Est. Wealth Gains', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 12)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.totalSipReturns),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: AppColors.teal)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600, color: AppColors.teal)),
                       ],
                     ),
                   ],
@@ -93,10 +93,10 @@ class SipView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Monthly Investment', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Monthly Investment', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         currencyFormatter.format(fin.sipMonthlyInvestment),
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.teal),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: AppColors.teal),
                       ),
                     ],
                   ),
@@ -124,10 +124,10 @@ class SipView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Expected Return (p.a.)', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Expected Return (p.a.)', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${fin.sipExpectedRate.toStringAsFixed(1)} %',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.teal),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: AppColors.teal),
                       ),
                     ],
                   ),
@@ -155,10 +155,10 @@ class SipView extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text('Investment Tenure', style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w400)),
+                      Text('Investment Tenure', style: GoogleFonts.outfit(fontSize: 13.5, fontWeight: FontWeight.w500)),
                       Text(
                         '${fin.sipYears} Years',
-                        style: GoogleFonts.inter(fontWeight: FontWeight.w500, color: AppColors.teal),
+                        style: GoogleFonts.outfit(fontWeight: FontWeight.w600, fontSize: 14, color: AppColors.teal),
                       ),
                     ],
                   ),

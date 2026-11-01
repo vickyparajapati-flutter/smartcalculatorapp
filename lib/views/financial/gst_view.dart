@@ -38,9 +38,9 @@ class GstView extends StatelessWidget {
               children: [
                 Text(
                   'TOTAL GROSS AMOUNT',
-                  style: GoogleFonts.inter(
-                    fontSize: 11,
-                    fontWeight: FontWeight.w500,
+                  style: GoogleFonts.outfit(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: 1.2,
                     color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
                   ),
@@ -48,9 +48,9 @@ class GstView extends StatelessWidget {
                 const SizedBox(height: 6),
                 Text(
                   currencyFormatter.format(fin.totalGstAmount),
-                  style: GoogleFonts.inter(
-                    fontSize: 36,
-                    fontWeight: FontWeight.w200,
+                  style: GoogleFonts.outfit(
+                    fontSize: 38,
+                    fontWeight: FontWeight.w600,
                     letterSpacing: -0.5,
                     color: isDark ? AppColors.primaryLight : AppColors.primary,
                   ),
@@ -64,19 +64,19 @@ class GstView extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text('Base Net Price', style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
+                        Text('Base Net Price', style: GoogleFonts.outfit(fontSize: 12, color: Colors.grey)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.netGstAmount),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600)),
                       ],
                     ),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('Total GST (${fin.gstRate.toStringAsFixed(0)}%)', style: GoogleFonts.inter(fontSize: 11, color: Colors.grey)),
+                        Text('Total GST (${fin.gstRate.toStringAsFixed(0)}%)', style: GoogleFonts.outfit(fontSize: 12, color: Colors.grey)),
                         const SizedBox(height: 2),
                         Text(currencyFormatter.format(fin.calculatedGstTax),
-                            style: GoogleFonts.inter(fontSize: 14, fontWeight: FontWeight.w500, color: isDark ? AppColors.primaryLight : AppColors.primary)),
+                            style: GoogleFonts.outfit(fontSize: 15, fontWeight: FontWeight.w600, color: isDark ? AppColors.primaryLight : AppColors.primary)),
                       ],
                     ),
                   ],
@@ -117,12 +117,12 @@ class GstView extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Initial Amount', style: GoogleFonts.inter(color: Colors.grey, fontSize: 12)),
+                  Text('Initial Amount', style: GoogleFonts.outfit(color: Colors.grey, fontSize: 13, fontWeight: FontWeight.w500)),
                   const SizedBox(height: 8),
                   TextFormField(
                     initialValue: fin.gstAmount.toStringAsFixed(0),
                     keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                    style: GoogleFonts.inter(fontSize: 24, fontWeight: FontWeight.w300),
+                    style: GoogleFonts.outfit(fontSize: 24, fontWeight: FontWeight.w500),
                     decoration: const InputDecoration(
                       prefixText: '₹ ',
                     ),
@@ -142,9 +142,9 @@ class GstView extends StatelessWidget {
           // Rate Selector Chips (Thin Minimalist Pills)
           Text(
             'SELECT GST RATE',
-            style: GoogleFonts.inter(
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
+            style: GoogleFonts.outfit(
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
               letterSpacing: 1.0,
               color: isDark ? AppColors.darkTextSecondary : AppColors.lightTextSecondary,
             ),
@@ -179,9 +179,9 @@ class GstView extends StatelessWidget {
                       ),
                       child: Text(
                         '${rate.toStringAsFixed(0)}%',
-                        style: GoogleFonts.inter(
-                          fontSize: 13,
-                          fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                        style: GoogleFonts.outfit(
+                          fontSize: 13.5,
+                          fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
                           color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? Colors.white70 : Colors.black87),
                         ),
                       ),
@@ -247,9 +247,9 @@ class GstView extends StatelessWidget {
         ),
         child: Text(
           label,
-          style: GoogleFonts.inter(
-            fontSize: 13,
-            fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+          style: GoogleFonts.outfit(
+            fontSize: 13.5,
+            fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
             color: isSelected ? (isDark ? AppColors.primaryLight : AppColors.primary) : (isDark ? Colors.white70 : Colors.black87),
           ),
         ),
@@ -261,8 +261,8 @@ class GstView extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(title, style: GoogleFonts.inter(fontSize: 13, color: Colors.grey)),
-        Text(value, style: GoogleFonts.inter(fontSize: 13, fontWeight: FontWeight.w500)),
+        Text(title, style: GoogleFonts.outfit(fontSize: 13.5, color: Colors.grey)),
+        Text(value, style: GoogleFonts.outfit(fontSize: 14, fontWeight: FontWeight.w600)),
       ],
     );
   }
