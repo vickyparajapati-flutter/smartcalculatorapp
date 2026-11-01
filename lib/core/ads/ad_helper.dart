@@ -7,19 +7,16 @@ class AdHelper {
   // Automatically switches to Real AdMob IDs in Release Mode (flutter build apk / appbundle).
   static bool get isTestMode => kDebugMode;
 
-  // ==================== REAL ADMOB UNIT IDS ====================
-  // Paste your real AdMob Unit IDs here when your AdMob account is ready:
-  static const String _realBannerAndroid = 'ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY';
-  static const String _realInterstitialAndroid = 'ca-app-pub-XXXXXXXXXXXXXXXX/ZZZZZZZZZZ';
-  static const String _realAppOpenAndroid = 'ca-app-pub-XXXXXXXXXXXXXXXX/AAAAAAAAAA';
-  static const String _realRewardedAndroid = 'ca-app-pub-XXXXXXXXXXXXXXXX/RRRRRRRRRR';
+  // ==================== REAL ADMOB PRODUCTION UNIT IDS ====================
+  static const String _realBannerAndroid = 'ca-app-pub-7517890910821454/4341139953';
+  static const String _realInterstitialAndroid = 'ca-app-pub-7517890910821454/9050541150';
+  static const String _realAppOpenAndroid = 'ca-app-pub-7517890910821454/1714976611';
 
   // ==================== OFFICIAL GOOGLE TEST UNIT IDS ====================
-  // Google strictly mandates these sample IDs during development & testing
+  // Google strictly mandates these sample IDs during debug development
   static const String _testBannerAndroid = 'ca-app-pub-3940256099942544/6300978111';
   static const String _testInterstitialAndroid = 'ca-app-pub-3940256099942544/1033173712';
   static const String _testAppOpenAndroid = 'ca-app-pub-3940256099942544/9257390508';
-  static const String _testRewardedAndroid = 'ca-app-pub-3940256099942544/5224354917';
 
   // 1. BANNER AD UNIT ID
   static String get bannerAdUnitId {
@@ -48,15 +45,6 @@ class AdHelper {
     return '';
   }
 
-  // 4. REWARDED AD UNIT ID
-  static String get rewardedAdUnitId {
-    if (kIsWeb) return '';
-    if (Platform.isAndroid) {
-      return isTestMode ? _testRewardedAndroid : _realRewardedAndroid;
-    }
-    return '';
-  }
-
   // ==================== AD MANAGERS & COOLDOWNS ====================
   static InterstitialAd? _interstitialAd;
   static bool _isInterstitialLoading = false;
@@ -67,16 +55,12 @@ class AdHelper {
   static bool _isAppOpenLoading = false;
   static bool _isShowingAppOpen = false;
 
-  static RewardedAd? _rewardedAd;
-  static bool _isRewardedLoading = false;
-
   static Future<void> initialize() async {
     if (kIsWeb) return;
     try {
       await MobileAds.instance.initialize();
       loadInterstitialAd();
       loadAppOpenAd();
-      loadRewardedAd();
     } catch (e) {
       debugPrint('AdMob initialization error: $e');
     }
@@ -182,53 +166,5 @@ class AdHelper {
     if (kIsWeb || _isShowingAppOpen || _appOpenAd == null) return;
     _isShowingAppOpen = true;
     _appOpenAd!.show();
-  }
-
-  // ---------- REWARDED ADS (OPTIONAL BONUS) ----------
-  static void loadRewardedAd() {
-    if (kIsWeb || _isRewardedLoading || _rewardedAd != null) return;
-    final adUnitId = rewardedAdUnitId;
-    if (adUnitId.isEmpty) return;
-
-    _isRewardedLoading = true;
-    RewardedAd.load(
-      adUnitId: adUnitId,
-      request: const AdRequest(),
-      rewardedAdLoadCallback: RewardedAdLoadCallback(
-        onAdLoaded: (ad) {
-          _rewardedAd = ad;
-          _isRewardedLoading = false;
-          _rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-            onAdDismissedFullScreenContent: (ad) {
-              ad.dispose();
-              _rewardedAd = null;
-              loadRewardedAd();
-            },
-            onAdFailedToShowFullScreenContent: (ad, error) {
-              ad.dispose();
-              _rewardedAd = null;
-              loadRewardedAd();
-            },
-          );
-        },
-        onAdFailedToLoad: (error) {
-          debugPrint('RewardedAd failed to load: $error');
-          _rewardedAd = null;
-          _isRewardedLoading = false;
-        },
-      ),
-    );
-  }
-
-  static void showRewardedAd({required Function(RewardItem reward) onRewarded, VoidCallback? onDismissed}) {
-    if (kIsWeb || _rewardedAd == null) {
-      loadRewardedAd();
-      onDismissed?.call();
-      return;
-    }
-
-    _rewardedAd!.show(onUserEarnedReward: (ad, reward) {
-      onRewarded(reward);
-    });
   }
 }
