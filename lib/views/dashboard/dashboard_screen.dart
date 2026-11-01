@@ -23,6 +23,7 @@ import '../tools/date_screen.dart';
 import '../tools/currency_screen.dart';
 import '../tools/gst_invoice_screen.dart';
 import '../vault/vault_setup_dialog.dart';
+import '../../core/utils/app_review_service.dart';
 
 class DashboardScreen extends StatefulWidget {
   final Function(int index)? onSwitchTab;
@@ -52,6 +53,13 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('All Calculators (18+)'),
+        actions: [
+          IconButton(
+            tooltip: 'Rate, Share & More',
+            icon: const Icon(Icons.more_vert_rounded),
+            onPressed: () => AppReviewService.showMoreOptionsSheet(context),
+          ),
+        ],
       ),
       body: Column(
         children: [

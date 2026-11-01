@@ -10,6 +10,7 @@ import '../vault/vault_home_screen.dart';
 import '../vault/vault_setup_dialog.dart';
 import 'widgets/calc_button.dart';
 import 'widgets/history_sheet.dart';
+import '../../core/utils/app_review_service.dart';
 
 class CalculatorScreen extends StatefulWidget {
   const CalculatorScreen({super.key});
@@ -151,6 +152,13 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                               ),
                             ),
                         ],
+                      ),
+
+                      // More Options (Rate Us, Share App, Privacy Policy)
+                      IconButton(
+                        tooltip: 'More (Rate, Share & Settings)',
+                        icon: const Icon(Icons.more_vert_rounded, size: 22),
+                        onPressed: () => AppReviewService.showMoreOptionsSheet(context),
                       ),
                     ],
                   ),
@@ -424,6 +432,7 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
                             }
                           }
                           calc.equals();
+                          AppReviewService.checkAndPromptAutoReview();
                         },
                         onLongPress: () {
                           HapticService.mediumClick();
